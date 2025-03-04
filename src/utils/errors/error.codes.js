@@ -1,0 +1,13 @@
+const ERROR_CODES = {
+  SERVER: {
+    INTERNAL_SERVER_ERROR: 1000,
+  },
+  USER: {
+    NOT_FOUND: 2000,
+    INVALID_CREDENTIALS: 2001,
+    EMAIL_ALREADY_EXISTS: 2002,
+    INVALID_EMAIL: 2003,
+  },
+};
+
+module.exports = ERROR_CODES;
