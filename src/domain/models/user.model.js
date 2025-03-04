@@ -1,5 +1,16 @@
 const bcrypt = require("bcryptjs");
 
+/**
+ * Modelo de la tabla users
+ * @typedef {Object} Users
+ * @property {UUID} id - Identificador único del usuario
+ * @property {string} name.required - Nombre del usuario
+ * @property {string} email.required - Correo electrónico del usuario
+ * @property {string} password.required - Contraseña del usuario
+ * @property {Date} createdAt - Fecha de creación del usuario
+ * @property {Date} updatedAt - Fecha de actualización del usuario
+ */
+
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define(
     "Users",
