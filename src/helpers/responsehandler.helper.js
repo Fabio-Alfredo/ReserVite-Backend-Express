@@ -4,3 +4,5 @@ const responseHandler = (res, status, message, data) => {
     data: data || null,
   });
 };
+
+module.exports = responseHandler;
