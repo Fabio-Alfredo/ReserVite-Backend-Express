@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 
 /**
  * Modelo de la tabla users
@@ -13,7 +13,7 @@ const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define(
-    'Users',
+    "Users",
     {
       id: {
         allowNull: false,
@@ -26,14 +26,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         validators: {
           notNull: {
-            msg: 'Name is required',
+            msg: "Name is required",
           },
           notEmpty: {
-            msg: 'Name cannot be empty',
+            msg: "Name cannot be empty",
           },
           is: {
-            args: ['^[a-z]+$', 'i'],
-            msg: 'Name must contain only letters',
+            args: ["^[a-z]+$", "i"],
+            msg: "Name must contain only letters",
           },
         },
       },
@@ -41,17 +41,17 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
         unique: {
-          msg: 'Email already exists',
+          msg: "Email already exists",
         },
         validators: {
           notNull: {
-            msg: 'Email is required',
+            msg: "Email is required",
           },
           notEmpty: {
-            msg: 'Email cannot be empty',
+            msg: "Email cannot be empty",
           },
           isEmail: {
-            msg: 'Invalid email',
+            msg: "Invalid email",
           },
         },
       },
@@ -60,10 +60,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         validators: {
           notNull: {
-            msg: 'Password is required',
+            msg: "Password is required",
           },
           notEmpty: {
-            msg: 'Password cannot be empty',
+            msg: "Password cannot be empty",
           },
         },
       },
@@ -71,16 +71,20 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.STRING,
       },
+      recovery_token: {
+        allowNull: true,
+        type: DataTypes.STRING,
+      },
     },
     {
       timestamps: true,
-      tableName: 'users',
+      tableName: "users",
       underscored: true,
     }
   );
 
   Users.beforeSave(async (user) => {
-    if (user.changed('password')) {
+    if (user.changed("password")) {
       user.password = await bcrypt.hash(user.password, parseInt(10));
     }
   });
