@@ -16,14 +16,14 @@ const TokenStrategies = {
    * @returns {number} - Tiempo de exp
    */
   JWT: {
-    generateToken: (payload, expiresIn = 3600) => {
+    generateToken: (payload) => {
       const token = sign(payload, config.development.secret_key_jwt, {
-        expiresIn,
+        expiresIn: 3600,
       });
       return {
         token,
         type: "Bearer",
-        expires_in: expiresIn,
+        expires_in: 3600,
       };
     },
 
@@ -34,6 +34,20 @@ const TokenStrategies = {
      */
     verifyToken: (token) => {
       const payload = verify(token, config.development.secret_key_jwt);
+      return payload;
+    },
+  },
+
+  RECOVERY_JWT: {
+    generateToken: (payload) => {
+      const token = sign(payload, config.development.secret_key_recovery_jwt, {
+        expiresIn: 900,
+      });
+      return token;
+    },
+
+    verifyToken: (token) => {
+      const payload = verify(token, config.development.secret_key_recovery_jwt);
       return payload;
     },
   },

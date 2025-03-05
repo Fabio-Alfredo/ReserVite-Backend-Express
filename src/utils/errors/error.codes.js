@@ -1,6 +1,7 @@
 const ERROR_CODES = {
   SERVER: {
     INTERNAL_SERVER_ERROR: 1000,
+    EMAIL_SEND_ERROR: 1001,
   },
   USER: {
     NOT_FOUND: 2000,
