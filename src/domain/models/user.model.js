@@ -67,6 +67,10 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      session_token: {
+        allowNull: true,
+        type: DataTypes.STRING,
+      },
     },
     {
       timestamps: true,
