@@ -75,6 +75,14 @@ const authUser = async (email, password) => {
   }
 };
 
+/**
+ * Recupera la contraseña de un usuario
+ *
+ * @param {string} email - Email del usuario
+ * @param {string} name - Nombre del usuario
+ * @returns {Promise<string>} - Token de recuperación
+ * @throws {ServiceError} - Error al recuperar la contraseña
+ */
 const recoverPassword = async (email, name) => {
   const t = await Transactions.starTransaction();
   try {
@@ -82,9 +90,10 @@ const recoverPassword = async (email, name) => {
     if (!exists) {
       throw new ServiceError(
         "Invalid email or name",
-        ErrorCodes.USER.INVALID_CREDENTIALS
+        ErrorCodes.USER.NOT_FOUND
       );
     }
+
     const tokenStrategy = createStrategy.createTokenStrategy("RECOVERY_JWT");
     const token = tokenStrategy.generateToken({
       id: exists.id,
@@ -97,6 +106,8 @@ const recoverPassword = async (email, name) => {
       "Recover your password",
       `<a href="http://localhost:3000/recover/${token}">Recover Password</a>`
     );
+
+    await user_repository.updateRecoveryToken(exists.id, token, t);
 
     await Transactions.commitTransaction(t);
     return token;
