@@ -52,6 +52,7 @@ const save = async (user, t) => {
  * @param {string} id - Id del usuario
  * @param {Object} data - Datos del usuario
  * @param {Object} t - Transacción de la base de datos
+ * @returns {Promise<*>} - Usuario actual
  */
 const update = async (id, data, t) => {
   const user = await Users.update(data, {
@@ -59,6 +60,27 @@ const update = async (id, data, t) => {
     fields: ["name", "email", "password"],
     transaction: t,
   });
+  return user;
+};
+
+/**
+ * Actualiza el token de sesión de un usuario
+ *
+ * @param {string} id - Id del usuario
+ * @param {string} sessionToken - Token de sesión
+ * @param {Object} t - Transacción de la base de datos
+ * @returns {Promise<*>} - Usuario actualizado
+ */
+const updateSessionToken = async (id, sessionToken, t) => {
+  const user = await Users.update(
+    { session_token: sessionToken },
+    {
+      where: { id },
+      fields: ["session_token"],
+      transaction: t,
+    }
+  );
+  return user;
 };
 
 module.exports = {
@@ -67,4 +89,5 @@ module.exports = {
   findByEmail,
   save,
   update,
+  updateSessionToken,
 };
