@@ -1,6 +1,7 @@
 const user_repository = require("../repositories/user.repository");
 const ServiceError = require("../utils/errors/service.error");
 const ErrorCodes = require("../utils/errors/error.codes");
+const createStrategy = require("../utils/jwt/jwt.util");
 
 const register = async (user) => {
   try {
@@ -21,6 +22,27 @@ const register = async (user) => {
   }
 };
 
+const authUser = async (email, password) => {
+  const user = await user_repository.findByEmail(email);
+
+  if (!user || !(await user.validPassword(password))) {
+    throw new ServiceError(
+      "Invalid email or password",
+      ErrorCodes.USER.INVALID_CREDENTIALS
+    );
+  }
+
+  const tokenStrategy = createStrategy("JWT");
+
+  const token = tokenStrategy.generateToken({
+    id: user.id,
+    email: user.email,
+  });
+
+  return token;
+};
+
 module.exports = {
   register,
+  authUser,
 };
