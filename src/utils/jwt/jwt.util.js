@@ -1,5 +1,5 @@
-const { sign, verify } = require('jsonwebtoken');
-const config = require('../../config/config');
+const { sign, verify } = require("jsonwebtoken");
+const config = require("../../config/config");
 
 /**
  * Token strategies
@@ -16,12 +16,14 @@ const TokenStrategies = {
    * @returns {number} - Tiempo de exp
    */
   JWT: {
-    generateToken: (payload) => {
-      const token = sign(payload, config.development.secret_key_jwt);
+    generateToken: (payload, expiresIn = 3600) => {
+      const token = sign(payload, config.development.secret_key_jwt, {
+        expiresIn,
+      });
       return {
         token,
-        type: 'Bearer',
-        expires: 3600,
+        type: "Bearer",
+        expires_in: expiresIn,
       };
     },
 
@@ -53,7 +55,7 @@ const TokenStrategies = {
  */
 const createTokenStrategy = (strategy) => {
   if (!TokenStrategies[strategy]) {
-    throw new Error('Invalid token strategy');
+    throw new Error("Invalid token strategy");
   }
   return TokenStrategies[strategy];
 };
