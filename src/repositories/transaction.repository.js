@@ -1,4 +1,4 @@
-const { sequelize } = require("../domain/models");
+const { sequelize } = require('../domain/models');
 
 /**
  * Repositorio de transacciones

@@ -1,5 +1,5 @@
-const Sequelize = require("sequelize");
-const config = require("../config").development;
+const Sequelize = require('sequelize');
+const config = require('../config').development;
 
 let sequelize;
 

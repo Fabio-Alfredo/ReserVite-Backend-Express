@@ -1,7 +1,7 @@
-const createHttpError = require("http-errors");
-const ErrorCodes = require("../utils/errors/error.codes");
-const authService = require("../services/auth.service");
-const responseHandler = require("../helpers/responsehandler.helper");
+const createHttpError = require('http-errors');
+const ErrorCodes = require('../utils/errors/error.codes');
+const authService = require('../services/auth.service');
+const responseHandler = require('../helpers/responsehandler.helper');
 
 /**
  * Registra un nuevo usuario
@@ -16,7 +16,7 @@ const registerUser = async (req, res, next) => {
     const user = req.body;
     const newUser = await authService.register(user);
 
-    responseHandler(res, 201, "User created successfully", newUser);
+    responseHandler(res, 201, 'User created successfully', newUser);
   } catch (e) {
     switch (e.code) {
       case ErrorCodes.USER.EMAIL_ALREADY_EXISTS:
@@ -44,7 +44,7 @@ const loginUser = async (req, res, next) => {
     const { email, password } = req.body;
     const token = await authService.authUser(email, password);
 
-    responseHandler(res, 200, "User logged in successfully", token);
+    responseHandler(res, 200, 'User logged in successfully', token);
   } catch (e) {
     switch (e.code) {
       case ErrorCodes.USER.INVALID_CREDENTIALS:

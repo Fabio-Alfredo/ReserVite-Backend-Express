@@ -1,17 +1,17 @@
-const db = require("../../domain/models/index");
-const config = require("../config");
+const db = require('../../domain/models/index');
+const config = require('../config');
 
 const dbConnection = async () => {
   try {
     await db.sequelize.authenticate();
-    console.log("Connection has been established successfully.");
+    console.log('Connection has been established successfully.');
 
-    if (config.node_env === "development") {
+    if (config.node_env === 'development') {
       await db.sequelize.sync({ force: false });
-      console.log("All models were synchronized successfully.");
+      console.log('All models were synchronized successfully.');
     }
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    console.error('Unable to connect to the database:', error);
   }
 };
 

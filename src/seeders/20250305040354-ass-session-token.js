@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
-    await queryInterface.addColumn("users", "session_token", {
+    await queryInterface.addColumn('users', 'session_token', {
       type: Sequelize.STRING,
       allowNull: true,
     });
@@ -25,6 +25,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.removeColumn("users", "session_token");
+    await queryInterface.removeColumn('users', 'session_token');
   },
 };

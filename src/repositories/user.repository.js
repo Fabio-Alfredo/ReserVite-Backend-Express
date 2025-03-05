@@ -1,4 +1,4 @@
-const { Users } = require("../domain/models");
+const { Users } = require('../domain/models');
 
 /**
  * Añade un nuevo usuario a la base de datos
@@ -57,7 +57,7 @@ const save = async (user, t) => {
 const update = async (id, data, t) => {
   const user = await Users.update(data, {
     where: { id },
-    fields: ["name", "email", "password"],
+    fields: ['name', 'email', 'password'],
     transaction: t,
   });
   return user;
@@ -76,7 +76,7 @@ const updateSessionToken = async (id, sessionToken, t) => {
     { session_token: sessionToken },
     {
       where: { id },
-      fields: ["session_token"],
+      fields: ['session_token'],
       transaction: t,
     }
   );
