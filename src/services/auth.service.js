@@ -54,17 +54,17 @@ const authUser = async (email, password) => {
       );
     }
 
-    const tokenStrategy = createStrategy("JWT");
+    const tokenStrategy = createStrategy.createTokenStrategy("JWT");
 
-    const token = tokenStrategy.generateToken({
+    const tokenData = tokenStrategy.generateToken({
       id: user.id,
       email: user.email,
     });
 
-    await user_repository.updateSessionToken(user.id, token, t);
+    await user_repository.updateSessionToken(user.id, tokenData.token, t);
 
     await Transactions.commitTransaction(t);
-    return token;
+    return tokenData;
   } catch (e) {
     await Transactions.rollbackTransaction(t);
     throw new ServiceError(

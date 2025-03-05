@@ -7,7 +7,7 @@ const dbConnection = async () => {
     console.log("Connection has been established successfully.");
 
     if (config.node_env === "development") {
-      await db.sequelize.sync({ force: true });
+      await db.sequelize.sync({ force: false });
       console.log("All models were synchronized successfully.");
     }
   } catch (error) {

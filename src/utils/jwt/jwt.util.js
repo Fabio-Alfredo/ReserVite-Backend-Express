@@ -5,7 +5,11 @@ const TokenStrategies = {
   JWT: {
     generateToken: (payload) => {
       const token = sign(payload, config.development.secret_key_jwt);
-      return token;
+      return {
+        token,
+        type: "Bearer",
+        expires: 3600,
+      };
     },
     verifyToken: (token) => {
       const payload = verify(token, config.development.secret_key_jwt);
