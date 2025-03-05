@@ -115,6 +115,26 @@ const findByEmailAndUsername = async (email, name) => {
   return user;
 };
 
+/**
+ * Actualiza la contraseña de un usuario
+ *
+ * @param {string} id - Id del usuario
+ * @param {string} password - Contraseña del usuario
+ * @param {Object} t - Transacción de la base de datos
+ * @returns {Promise<*>} - Usuario actualizado
+ */
+const updatePassword = async (id, password, t) => {
+  const user = await Users.update(
+    { password },
+    {
+      where: { id },
+      fields: ["password"],
+      transaction: t,
+    }
+  );
+  return user;
+};
+
 module.exports = {
   create,
   findById,
@@ -124,4 +144,5 @@ module.exports = {
   updateSessionToken,
   findByEmailAndUsername,
   updateRecoveryToken,
+  updatePassword,
 };
