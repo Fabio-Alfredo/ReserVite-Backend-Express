@@ -83,6 +83,33 @@ const updateSessionToken = async (id, sessionToken, t) => {
   return user;
 };
 
+/**
+ * Actualiza el token de recuperación de un usuario
+ *
+ * @param {string} id - Id del usuario
+ * @param {string} recoveryToken - Token de recuperación
+ * @param {Object} t - Transacción de la base de datos
+ * @returns {Promise<*>} - Usuario actualizado
+ */
+const updateRecoveryToken = async (id, recoveryToken, t) => {
+  const user = await Users.update(
+    { recovery_token: recoveryToken },
+    {
+      where: { id },
+      fields: ["recovery_token"],
+      transaction: t,
+    }
+  );
+  return user;
+};
+
+/**
+ * Busca un usuario por su email y nombre
+ *
+ * @param {string} email - Email del usuario
+ * @param {string} name - Nombre del usuario
+ * @returns {Promise<*>} - Usuario encontrado
+ */
 const findByEmailAndUsername = async (email, name) => {
   const user = await Users.findOne({ where: { email, name } });
   return user;
@@ -96,4 +123,5 @@ module.exports = {
   update,
   updateSessionToken,
   findByEmailAndUsername,
+  updateRecoveryToken,
 };
