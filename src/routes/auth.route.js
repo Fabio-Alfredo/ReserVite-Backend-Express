@@ -1,10 +1,11 @@
-const Route = require('express').Router;
-const authController = require('../controller/auth.controller');
-const validatorHandler = require('../middlewares/validator.middleware');
+const Route = require("express").Router;
+const authController = require("../controller/auth.controller");
+const validatorHandler = require("../middlewares/validator.middleware");
 const {
   registerValidator,
   loginValidator,
-} = require('../validators/auth.validator');
+  recoverPasswordValidator,
+} = require("../validators/auth.validator");
 
 const authRouter = Route();
 
@@ -19,7 +20,7 @@ const authRouter = Route();
  * - uthController.registerUser => registra un nuevo usuario
  */
 authRouter.post(
-  '/register',
+  "/register",
   registerValidator,
   validatorHandler,
   authController.registerUser
@@ -36,10 +37,27 @@ authRouter.post(
  * - authController.loginUser => autentica un usuario
  */
 authRouter.post(
-  '/login',
+  "/login",
   loginValidator,
   validatorHandler,
   authController.loginUser
+);
+
+/**
+ * @route GET /auth/recovery-password
+ * @description Recuperar contraseña
+ * @access Publico
+ * @middleware
+ * - recoverPasswordValidator => valida los campos del body
+ * - validatorHandler => maneja los errores de validacion
+ * @cotroller
+ * - authController.recoveryPassword => envia un correo para recuperar la contraseña
+ */
+authRouter.get(
+  "/recovery-password",
+  recoverPasswordValidator,
+  validatorHandler,
+  authController.recoveryPassword
 );
 
 module.exports = authRouter;

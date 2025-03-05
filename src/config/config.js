@@ -26,7 +26,7 @@ const config = {
     port: validatorEnv(PORT, 'PORT'),
     secret_key_jwt: validatorEnv(SECRET_KEY_JWT, 'SECRET_KEY_JWT'),
     secret_key_recovery_jwt: validatorEnv(
-      SECRET_KEY_RECOVERY,
+      SECRET_KEY_RECOVERY_JWT,
       'SECRET_KEY_RECOVERY'
     ),
     db: {
