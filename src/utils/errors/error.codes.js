@@ -10,6 +10,10 @@ const ERROR_CODES = {
     INVALID_EMAIL: 2003,
     INVALID_TOKEN: 2004,
   },
+  ROLE:{
+    ROLE_NOT_FOUND: 3000,
+    ROLE_ALREADY_EXISTS: 3001,
+  }
 };
 
 module.exports = ERROR_CODES;
