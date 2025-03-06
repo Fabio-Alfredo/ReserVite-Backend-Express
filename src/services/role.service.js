@@ -1,5 +1,5 @@
 const role_repository = require("../repositories/role.repository");
-const ServiceError = require("../errors/service.error");
+const ServiceError = require("../utils/errors/service.error");
 const ErrorCodes = require("../utils/errors/error.codes");
 const Transactions = require("../repositories/transaction.repository");
 const ERROR_CODES = require("../utils/errors/error.codes");
@@ -46,7 +46,7 @@ const findById = async (id) => {
   try {
     const role = await role_repository.findById(id);
     if (!role) {
-      throw new ServiceError("Role not found", ErrorCodes.ROLE.ROLE_NOT_FOUND);
+      throw new ServiceError("Role not exist", ErrorCodes.ROLE.ROLE_NOT_FOUND);
     }
 
     return role;
@@ -86,13 +86,13 @@ const deleteById = async (id) => {
 
 /**
  * Busca todos los roles
- * 
+ *
  * @returns {Promise<*>} - Roles encontrados
  * @throws {ServiceError} - Error al buscar los roles
  */
 const findAll = async () => {
   try {
-    const roles = await role_repository.findAll() || [];
+    const roles = (await role_repository.findAll()) || [];
     return roles;
   } catch (e) {
     throw new ServiceError(
@@ -106,5 +106,5 @@ module.exports = {
   create,
   findById,
   deleteById,
-  findAll
+  findAll,
 };
