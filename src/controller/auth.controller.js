@@ -1,6 +1,6 @@
 const createHttpError = require("http-errors");
 const ErrorCodes = require("../utils/errors/error.codes");
-const authService = require("../services/auth.service");
+const auth_service = require("../services/auth.service");
 const responseHandler = require("../helpers/responsehandler.helper");
 
 /**
@@ -14,7 +14,7 @@ const responseHandler = require("../helpers/responsehandler.helper");
 const registerUser = async (req, res, next) => {
   try {
     const user = req.body;
-    const newUser = await authService.register(user);
+    const newUser = await auth_service.register(user);
 
     responseHandler(res, 201, "User created successfully", newUser);
   } catch (e) {
@@ -42,7 +42,7 @@ const registerUser = async (req, res, next) => {
 const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const token = await authService.authUser(email, password);
+    const token = await auth_service.authUser(email, password);
 
     responseHandler(res, 200, "User logged in successfully", token);
   } catch (e) {
@@ -70,7 +70,7 @@ const loginUser = async (req, res, next) => {
 const recoveryPassword = async (req, res, next) => {
   try {
     const { name, email } = req.body;
-    const token = await authService.recoverPassword(email, name);
+    const token = await auth_service.recoverPassword(email, name);
 
     responseHandler(res, 200, "Recovery token sent successfully", token);
   } catch (e) {
@@ -98,7 +98,8 @@ const recoveryPassword = async (req, res, next) => {
 const resetPassword = async (req, res, next) => {
   try {
     const { password, token } = req.body;
-    const data = await authService.resetPassword(token, password);
+    const data = await auth_service.resetPassword(token, password);
+    
     responseHandler(res, 200, "Password reset successfully", data);
   } catch (e) {
     switch (e.code) {
