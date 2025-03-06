@@ -120,8 +120,43 @@ const recoverPassword = async (email, name) => {
   }
 };
 
+/**
+ * Resetea la contraseña de un usuario
+ *
+ * @param {string} token - Token de recuperación
+ * @param {string} password - Nueva contraseña
+ * @returns {Promise<string>} - Mensaje de éxito
+ * @throws {ServiceError} - Error al resetear la contraseña
+ */
+const resetPassword = async (token, password) => {
+  const t = await Transactions.starTransaction();
+  try {
+    const tokenStrategy = createStrategy.createTokenStrategy("RECOVERY_JWT");
+    const payload = tokenStrategy.verifyToken(token);
+
+    const user = await user_repository.findById(payload.id);
+
+    if (!user) {
+      throw new ServiceError("Invalid token", ErrorCodes.USER.INVALID_TOKEN);
+    }
+
+    user.password = password;
+    user.recovery_token = null;
+    await user_repository.save(user, t);
+
+    await Transactions.commitTransaction(t);
+    return "Password updated successfully";
+  } catch (e) {
+    await Transactions.rollbackTransaction(t);
+    throw new ServiceError(
+      e.message || "Error updating password",
+      e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
+    );
+  }
+};
 module.exports = {
   register,
   authUser,
   recoverPassword,
+  resetPassword,
 };
