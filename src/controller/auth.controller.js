@@ -87,6 +87,14 @@ const recoveryPassword = async (req, res, next) => {
   }
 };
 
+/**
+ * Resetea la contraseña de un usuario
+ *
+ * @param {Object} req - Datos de la solicitud
+ * @param {Object} res - Respuesta de la solicitud
+ * @param {Function} next - Pasa el control al siguiente manejador de solicitudes
+ * @returns {Object} - Contraseña reseteada
+ */
 const resetPassword = async (req, res, next) => {
   try {
     const { password, token } = req.body;
