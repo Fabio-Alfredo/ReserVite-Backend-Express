@@ -31,6 +31,7 @@ const findById = async (id) => {
  */
 const deleteById = async (id, t) => {
   await Roles.destroy({ where: { id }, transaction: t });
+  return true;
 };
 
 module.exports = {
