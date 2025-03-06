@@ -84,6 +84,12 @@ const deleteById = async (id) => {
   }
 };
 
+/**
+ * Busca todos los roles
+ * 
+ * @returns {Promise<*>} - Roles encontrados
+ * @throws {ServiceError} - Error al buscar los roles
+ */
 const findAll = async () => {
   try {
     const roles = await role_repository.findAll() || [];
