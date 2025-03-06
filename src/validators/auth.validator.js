@@ -1,68 +1,85 @@
-const { body } = require("express-validator");
+const { body } = require('express-validator');
 
 const registerValidator = [
-  body("name")
+  body('name')
     .trim()
     .isString()
     .notEmpty()
-    .withMessage("Name is required")
+    .withMessage('Name is required')
     .isLength({ min: 3 })
-    .withMessage("Name must be at least 3 characters")
+    .withMessage('Name must be at least 3 characters')
     .bail(),
 
-  body("email")
+  body('email')
     .trim()
     .isString()
     .notEmpty()
     .isEmail()
-    .withMessage("Invalid Email")
+    .withMessage('Invalid Email')
     .bail(),
 
-  body("password")
+  body('password')
     .trim()
     .isString()
     .notEmpty()
     .isLength({ min: 8 })
-    .withMessage("Password must be at least 8 characters")
+    .withMessage('Password must be at least 8 characters')
     .bail(),
 ];
 
 const loginValidator = [
-  body("email")
+  body('email')
     .trim()
     .isString()
     .notEmpty()
     .isEmail()
-    .withMessage("Invalid Email")
+    .withMessage('Invalid Email')
     .bail(),
 
-  body("password")
+  body('password')
     .trim()
     .isString()
     .notEmpty()
-    .withMessage("Password is required")
+    .withMessage('Password is required')
     .bail(),
 ];
 
 const recoverPasswordValidator = [
-  body("email")
+  body('email')
     .trim()
     .isString()
     .notEmpty()
     .isEmail()
-    .withMessage("Invalid Email")
+    .withMessage('Invalid Email')
     .bail(),
 
-  body("name")
+  body('name')
     .trim()
     .isString()
     .notEmpty()
-    .withMessage("Name is required")
+    .withMessage('Name is required')
+    .bail(),
+];
+
+const resetPasswordValidator = [
+  body('password')
+    .trim()
+    .isString()
+    .notEmpty()
+    .withMessage('Password is required')
+    .bail(),
+
+  body('token')
+    .trim()
+    .isString()
+    .notEmpty()
+    .withMessage('Token is required')
     .bail(),
 ];
 
 module.exports = {
   registerValidator,
   loginValidator,
-  recoverPasswordValidator
+  recoverPasswordValidator,
+  resetPasswordValidator,
 };

@@ -5,6 +5,7 @@ const {
   registerValidator,
   loginValidator,
   recoverPasswordValidator,
+  resetPasswordValidator,
 } = require("../validators/auth.validator");
 
 const authRouter = Route();
@@ -60,6 +61,21 @@ authRouter.get(
   authController.recoveryPassword
 );
 
-authRouter.put("/reset-password", authController.resetPassword);
+/**
+ * @route PUT /auth/reset-password
+ * @description Restablecer contraseña
+ * @access Publico
+ * @middleware
+ * - resetPasswordValidator => valida los campos del body
+ * - validatorHandler => maneja los errores de validacion
+ * @cotroller
+ * - authController.resetPassword => restablece la contraseña de un usuario
+ */
+authRouter.put(
+  "/reset-password",
+  resetPasswordValidator,
+  validatorHandler,
+  authController.resetPassword
+);
 
 module.exports = authRouter;
