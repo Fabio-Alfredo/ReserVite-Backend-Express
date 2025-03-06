@@ -24,6 +24,16 @@ const findById = async (id) => {
 };
 
 /**
+ * Busca todos los roles
+ *
+ * @returns {Promise<*>} - Roles encontrados
+ */
+const findAll = async () => {
+  const roles = await Roles.findAll();
+  return roles;
+};
+
+/**
  * Elimina un rol por su id
  *
  * @param {string} id - Id del rol
@@ -38,4 +48,5 @@ module.exports = {
   create,
   findById,
   deleteById,
+  findAll,
 };
