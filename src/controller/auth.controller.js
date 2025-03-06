@@ -87,8 +87,31 @@ const recoveryPassword = async (req, res, next) => {
   }
 };
 
+const resetPassword = async (req, res, next) => {
+  try {
+    const { password, token } = req.body;
+    const data = await authService.resetPassword(token, password);
+    responseHandler(res, 200, "Password reset successfully", data);
+  } catch (e) {
+    switch (e.code) {
+      case ErrorCodes.USER.NOT_FOUND:
+        next(createHttpError(404, e.message));
+        break;
+      case ErrorCodes.SERVER.INTERNAL_SERVER_ERROR:
+        next(createHttpError(500, e.message));
+        break;
+      case ErrorCodes.USER.INVALID_TOKEN:
+        next(createHttpError(400, e.message));
+        break;
+      default:
+        next(e);
+    }
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   recoveryPassword,
+  resetPassword,
 };
