@@ -104,7 +104,7 @@ const recoverPassword = async (email, name) => {
       email,
       "Recover Password",
       "Recover your password",
-      `<a href="http://localhost:3000/recover/${token}">Recover Password</a>`
+      `<a href="http://localsocketPath:3000/recover/${token}">Recover Password</a>`
     );
 
     await user_repository.updateRecoveryToken(exists.id, token, t);
