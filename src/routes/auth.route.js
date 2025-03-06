@@ -60,4 +60,6 @@ authRouter.get(
   authController.recoveryPassword
 );
 
+authRouter.put("/reset-password", authController.resetPassword);
+
 module.exports = authRouter;
