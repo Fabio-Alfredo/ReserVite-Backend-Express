@@ -9,8 +9,8 @@ const ErrorCodes = require("../utils/errors/error.codes");
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: config.development.email.company_email,
-    pass: config.development.email.company_password_email,
+    user: config.email.company_email,
+    pass: config.email.company_password_email,
   },
 });
 
@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
 const createMail = async (to, subject, text, html) => {
   try {
     await transporter.sendMail({
-      from: config.development.email.company_name,
+      from: config.email.company_name,
       to,
       subject,
       text,

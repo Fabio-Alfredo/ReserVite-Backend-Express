@@ -17,7 +17,7 @@ const TokenStrategies = {
    */
   JWT: {
     generateToken: (payload) => {
-      const token = sign(payload, config.development.secret_key_jwt, {
+      const token = sign(payload, config.secret_key_jwt, {
         expiresIn: 3600,
       });
       return {
@@ -33,21 +33,21 @@ const TokenStrategies = {
      * @returns {Object} - Datos del token
      */
     verifyToken: (token) => {
-      const payload = verify(token, config.development.secret_key_jwt);
+      const payload = verify(token, config.secret_key_jwt);
       return payload;
     },
   },
 
   RECOVERY_JWT: {
     generateToken: (payload) => {
-      const token = sign(payload, config.development.secret_key_recovery_jwt, {
+      const token = sign(payload, config.secret_key_recovery_jwt, {
         expiresIn: 900,
       });
       return token;
     },
 
     verifyToken: (token) => {
-      const payload = verify(token, config.development.secret_key_recovery_jwt);
+      const payload = verify(token, config.secret_key_recovery_jwt);
       return payload;
     },
   },

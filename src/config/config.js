@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const {
   PORT,
@@ -16,39 +16,61 @@ const {
 } = process.env;
 
 const validatorEnv = (env, name) => {
-  if (!env) throw new Error('The ' + name + ' is not defined');
-
+  if (!env) throw new Error("The " + name + " is not defined");
   return env;
 };
 
 const config = {
   development: {
-    port: validatorEnv(PORT, 'PORT'),
-    secret_key_jwt: validatorEnv(SECRET_KEY_JWT, 'SECRET_KEY_JWT'),
+    node_env: validatorEnv(NODE_ENV, "NODE_ENV") || "development",
+    port: validatorEnv(PORT, "PORT"),
+    secret_key_jwt: validatorEnv(SECRET_KEY_JWT, "SECRET_KEY_JWT"),
     secret_key_recovery_jwt: validatorEnv(
       SECRET_KEY_RECOVERY_JWT,
-      'SECRET_KEY_RECOVERY'
+      "SECRET_KEY_RECOVERY"
     ),
     db: {
-      database: validatorEnv(DB_DATABASE_NAME, 'DB_DATABASE_NAME'),
-      username: validatorEnv(DB_USER_NAME, 'DB_USER_NAME'),
-      password: validatorEnv(DB_PASSWORD, 'DB_PASSWORD'),
-      host: validatorEnv(DB_HOST, 'DB_HOST'),
-      dialect: validatorEnv(DB_DIALECT, 'DB_DIALECT'),
+      database: validatorEnv(DB_DATABASE_NAME, "DB_DATABASE_NAME"),
+      username: validatorEnv(DB_USER_NAME, "DB_USER_NAME"),
+      password: validatorEnv(DB_PASSWORD, "DB_PASSWORD"),
+      host: validatorEnv(DB_HOST, "DB_HOST"),
+      dialect: validatorEnv(DB_DIALECT, "DB_DIALECT"),
     },
     email: {
-      company_name: validatorEnv(COMPANY_NAME, 'COMPANY_NAME'),
-      company_email: validatorEnv(COMPANY_EMAIL, 'COMPANY_EMAIL'),
+      company_name: validatorEnv(COMPANY_NAME, "COMPANY_NAME"),
+      company_email: validatorEnv(COMPANY_EMAIL, "COMPANY_EMAIL"),
       company_password_email: validatorEnv(
         COMPANY_PASSWORD_EMAIL,
-        'COMPANY_PASSWORD_EMAIL'
+        "COMPANY_PASSWORD_EMAIL"
       ),
     },
   },
   production: {
-    port: validatorEnv(PORT, 'PORT'),
+    node_env: validatorEnv(NODE_ENV, "NODE_ENV") || "development",
+    port: validatorEnv(PORT, "PORT"),
+    secret_key_jwt: validatorEnv(SECRET_KEY_JWT, "SECRET_KEY_JWT"),
+    secret_key_recovery_jwt: validatorEnv(
+      SECRET_KEY_RECOVERY_JWT,
+      "SECRET_KEY_RECOVERY"
+    ),
+    db: {
+      database: validatorEnv(DB_DATABASE_NAME, "DB_DATABASE_NAME"),
+      username: validatorEnv(DB_USER_NAME, "DB_USER_NAME"),
+      password: validatorEnv(DB_PASSWORD, "DB_PASSWORD"),
+      host: validatorEnv(DB_HOST, "DB_HOST"),
+      dialect: validatorEnv(DB_DIALECT, "DB_DIALECT"),
+    },
+    email: {
+      company_name: validatorEnv(COMPANY_NAME, "COMPANY_NAME"),
+      company_email: validatorEnv(COMPANY_EMAIL, "COMPANY_EMAIL"),
+      company_password_email: validatorEnv(
+        COMPANY_PASSWORD_EMAIL,
+        "COMPANY_PASSWORD_EMAIL"
+      ),
+    },
   },
-  node_env: validatorEnv(NODE_ENV, 'NODE_ENV'),
 };
 
-module.exports = config;
+const currentConfig = config[NODE_ENV] || config.development;
+
+module.exports = currentConfig;
