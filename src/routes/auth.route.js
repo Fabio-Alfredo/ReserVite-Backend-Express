@@ -1,5 +1,5 @@
 const Route = require("express").Router;
-const authController = require("../controller/auth.controller");
+const auth_controller = require("../controller/auth.controller");
 const validatorHandler = require("../middlewares/validator.middleware");
 const {
   registerValidator,
@@ -24,7 +24,7 @@ authRouter.post(
   "/register",
   registerValidator,
   validatorHandler,
-  authController.registerUser
+  auth_controller.registerUser
 );
 
 /**
@@ -35,13 +35,13 @@ authRouter.post(
  * - loginValidator => valida los campos del body
  * - validatorHandler => maneja los errores de validacion
  * @cotroller
- * - authController.loginUser => autentica un usuario
+ * - auth_controller.loginUser => autentica un usuario
  */
 authRouter.post(
   "/login",
   loginValidator,
   validatorHandler,
-  authController.loginUser
+  auth_controller.loginUser
 );
 
 /**
@@ -52,13 +52,13 @@ authRouter.post(
  * - recoverPasswordValidator => valida los campos del body
  * - validatorHandler => maneja los errores de validacion
  * @cotroller
- * - authController.recoveryPassword => envia un correo para recuperar la contraseña
+ * - auth_controller.recoveryPassword => envia un correo para recuperar la contraseña
  */
 authRouter.get(
   "/recovery-password",
   recoverPasswordValidator,
   validatorHandler,
-  authController.recoveryPassword
+  auth_controller.recoveryPassword
 );
 
 /**
@@ -69,13 +69,13 @@ authRouter.get(
  * - resetPasswordValidator => valida los campos del body
  * - validatorHandler => maneja los errores de validacion
  * @cotroller
- * - authController.resetPassword => restablece la contraseña de un usuario
+ * - auth_controller.resetPassword => restablece la contraseña de un usuario
  */
 authRouter.put(
   "/reset-password",
   resetPasswordValidator,
   validatorHandler,
-  authController.resetPassword
+  auth_controller.resetPassword
 );
 
 module.exports = authRouter;
