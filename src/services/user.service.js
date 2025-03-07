@@ -108,13 +108,14 @@ const findByEmail = async (email) => {
 const findAllByRole = async (role = null) => {
   try {
     let users;
-    await role_service.findById(role);
 
     if (role) {
+      await role_service.findById(role);
       users = await user_repository.findAllByRole(role);
     }
 
     users = await user_repository.findAll();
+
     return users;
   } catch (e) {
     throw new ServiceError(
