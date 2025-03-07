@@ -1,6 +1,6 @@
 const createHttpError = require("http-errors");
 const { ErrorCodes } = require("../utils/errors");
-const auth_service = require("../services/auth.service");
+const { auth_service } = require("../services");
 const responseHandler = require("../helpers/responsehandler.helper");
 
 /**
@@ -99,7 +99,7 @@ const resetPassword = async (req, res, next) => {
   try {
     const { password, token } = req.body;
     const data = await auth_service.resetPassword(token, password);
-    
+
     responseHandler(res, 200, "Password reset successfully", data);
   } catch (e) {
     switch (e.code) {
