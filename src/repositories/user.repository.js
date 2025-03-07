@@ -1,4 +1,5 @@
 const { Users, Roles } = require("../domain/models");
+const { ASSING_ROLE } = require("../utils/constants/operationRoles.util");
 
 /**
  * Añade un nuevo usuario a la base de datos
@@ -140,6 +141,7 @@ const findAllByRole = async (roleId) => {
     include: [
       {
         model: Roles,
+        as:'roles',
         where: { id: roleId },
       },
     ],
