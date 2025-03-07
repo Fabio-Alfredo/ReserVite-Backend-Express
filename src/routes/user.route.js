@@ -22,4 +22,8 @@ userRouter.put(
   user_controller.assingRole
 );
 
+userRouter.get("/all-by-role/", user_controller.findAllByRoles);
+userRouter.get("/find-by-id/:id", user_controller.findById);
+userRouter.get("/find-by-email/:email", user_controller.findByEmail);
+
 module.exports = userRouter;
