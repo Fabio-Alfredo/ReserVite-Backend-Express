@@ -8,6 +8,15 @@ const {
   DELETE_ROLE,
 } = require("../utils/constants/operationRoles.util");
 
+/**
+ * Actualiza los roles de un usuario
+ *
+ * @param {string} userId - Id del usuario
+ * @param {string} roleId - Id del rol
+ * @param {string} operation - Operación a realizar
+ * @returns {Promise<*>} - Usuario actualizado
+ * @throws {ServiceError} - Error al asignar el rol
+ */
 const updatingRoles = async (userId, roleId, operation) => {
   const t = await Transactions.starTransaction();
   try {

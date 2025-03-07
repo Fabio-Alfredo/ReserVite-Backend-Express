@@ -5,6 +5,16 @@ const { assingRole } = require("../validators/user.validator");
 
 const userRouter = Route();
 
+/**
+ * @route PUT /user/assign-role
+ * @description Asigna un rol a un usuario
+ * @access Privado (admin)
+ * @middleware
+ * - assingRole => valida los campos del body
+ * - validatorHandler => maneja los errores de validacion
+ * @controller
+ * - user_controller.assingRole => asigna un rol a un usuario
+ */
 userRouter.put(
   "/assign-role",
   assingRole,

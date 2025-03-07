@@ -4,6 +4,14 @@ const createHttpError = require("http-errors");
 const ErrorCodes = require("../utils/errors/error.codes");
 const userDTO = require("../domain/dtos/user.dto");
 
+/**
+ * Asigna un rol a un usuario
+ *
+ * @param {Object} req - Datos de la solicitud
+ * @param {Object} res - Respuesta de la solicitud
+ * @param {Function} next - Pasa el control al siguiente manejador de solicitudes
+ * @returns {Object} - Usuario actualizado
+ */
 const assingRole = async (req, res, next) => {
   try {
     const { userId, roleId, operation } = req.body;
