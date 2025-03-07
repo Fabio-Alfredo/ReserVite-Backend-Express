@@ -53,6 +53,81 @@ const updatingRoles = async (userId, roleId, operation) => {
   }
 };
 
+/**
+ * Busca un usuario por su id
+ *
+ * @param {string} id - Id del usuario
+ * @returns {Promise<*>} - Usuario encontrado
+ * @throws {ServiceError} - Error al buscar el usuario
+ */
+const findById = async (id) => {
+  try {
+    const user = await user_repository.findById(id);
+    if (!user) {
+      throw new ServiceError("User not exist", ErrorCodes.USER.NOT_FOUND);
+    }
+
+    return user;
+  } catch (e) {
+    throw new ServiceError(
+      e.message || "Error finding user",
+      e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
+/**
+ * Busca un usuario por su email
+ *
+ * @param {string} email - Email del usuario
+ * @returns {Promise<*>} - Usuario encontrado
+ * @throws {ServiceError} - Error al buscar el usuario
+ */
+const findByEmail = async (email) => {
+  try {
+    const user = await user_repository.findByEmail(email);
+    if (!user) {
+      throw new ServiceError("User not exist", ErrorCodes.USER.NOT_FOUND);
+    }
+
+    return user;
+  } catch (e) {
+    throw new ServiceError(
+      e.message || "Error finding user",
+      e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
+/**
+ * Busca todos los usuarios si se proporciona un rol busca los usuarios con ese rol
+ *
+ * @param {string} role - Rol del usuario (opcional)
+ * @returns {Promise<*>} - Usuarios encontrados
+ * @throws {ServiceError} - Error al buscar los usuarios
+ */
+const findAllByRole = async (role = null) => {
+  try {
+    let users;
+    await role_service.findById(role);
+
+    if (role) {
+      users = await user_repository.findAllByRole(role);
+    }
+
+    users = await user_repository.findAll();
+    return users;
+  } catch (e) {
+    throw new ServiceError(
+      e.message || "Error finding user",
+      e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
 module.exports = {
   updatingRoles,
+  findById,
+  findByEmail,
+  findAllByRole,
 };
