@@ -8,6 +8,16 @@ const {
 
 const roleRouter = Route();
 
+/**
+ * @route POST /role/create
+ * @description Crea un nuevo rol
+ * @access Privado (admin)
+ * @middleware
+ * - createValidator => valida los campos del body
+ * - validatorHandler => maneja los errores de validacion
+ * @controller
+ * - role_controller.createRole => crea un nuevo rol
+ */
 roleRouter.post(
   "/create",
   createValidator,
@@ -15,6 +25,16 @@ roleRouter.post(
   role_controller.createRole
 );
 
+/**
+ * @route PUT /role/update
+ * @description Actualiza un rol
+ * @access Privado (admin)
+ * @middleware
+ * - createValidator => valida los campos del body
+ * - validatorHandler => maneja los errores de validacion
+ * @controller
+ * - role_controller.updateRole => actualiza un rol
+ */
 roleRouter.delete(
   "/delete/:id",
   idValidator,
@@ -22,6 +42,16 @@ roleRouter.delete(
   role_controller.deleteRole
 );
 
+/**
+ * @route GET /role/findId/:id
+ * @description Busca un rol por su id
+ * @access Privado (admin)
+ * @middleware
+ * - idValidator => valida el id
+ * - validatorHandler => maneja los errores de validacion
+ * @controller
+ * - role_controller.findRoleById => busca un rol por su id
+ */
 roleRouter.get(
   "/findId/:id",
   idValidator,
