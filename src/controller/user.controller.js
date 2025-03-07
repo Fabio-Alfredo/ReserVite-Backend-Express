@@ -1,7 +1,7 @@
 const user_service = require("../services/user.service");
 const responseHandler = require("../helpers/responsehandler.helper");
 const createHttpError = require("http-errors");
-const ErrorCodes = require("../utils/errors/error.codes");
+const {ErrorCodes} = require("../utils/errors");
 const userDTO = require("../domain/dtos/user.dto");
 
 /**

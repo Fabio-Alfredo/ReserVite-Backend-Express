@@ -1,6 +1,5 @@
 const user_repository = require("../repositories/user.repository");
-const ServiceError = require("../utils/errors/service.error");
-const ErrorCodes = require("../utils/errors/error.codes");
+const { ServiceError, ErrorCodes } = require("../utils/errors");
 const createStrategy = require("../utils/jwt/jwt.util");
 const Transactions = require("../repositories/transaction.repository");
 const createEmail = require("../helpers/sedEmail.helper");

@@ -1,7 +1,6 @@
 const user_repository = require("../repositories/user.repository");
 const role_service = require("../services/role.service");
-const ErrorCodes = require("../utils/errors/error.codes");
-const ServiceError = require("../utils/errors/service.error");
+const { ServiceError, ErrorCodes } = require("../utils/errors");
 const Transactions = require("../repositories/transaction.repository");
 const {
   ASSING_ROLE,

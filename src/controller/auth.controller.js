@@ -1,5 +1,5 @@
 const createHttpError = require("http-errors");
-const ErrorCodes = require("../utils/errors/error.codes");
+const { ErrorCodes } = require("../utils/errors");
 const auth_service = require("../services/auth.service");
 const responseHandler = require("../helpers/responsehandler.helper");
 

@@ -1,8 +1,6 @@
 const role_repository = require("../repositories/role.repository");
-const ServiceError = require("../utils/errors/service.error");
-const ErrorCodes = require("../utils/errors/error.codes");
+const { ServiceError, ErrorCodes } = require("../utils/errors");
 const Transactions = require("../repositories/transaction.repository");
-const ERROR_CODES = require("../utils/errors/error.codes");
 
 /**
  * Crea un nuevo rol
@@ -97,7 +95,7 @@ const findAll = async () => {
   } catch (e) {
     throw new ServiceError(
       e.message || "Error find all roles",
-      e.code || ERROR_CODES.SERVER.INTERNAL_SERVER_ERROR
+      e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
     );
   }
 };

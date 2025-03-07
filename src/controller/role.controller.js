@@ -1,7 +1,7 @@
 const role_service = require("../services/role.service");
 const createHttpError = require("http-errors");
 const responseHandler = require("../helpers/responsehandler.helper");
-const ErrorCodes = require("../utils/errors/error.codes");
+const {ErrorCodes}= require("../utils/errors");
 const roleDTO = require("../domain/dtos/role.dto");
 
 /**
