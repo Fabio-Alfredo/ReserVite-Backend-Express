@@ -93,5 +93,13 @@ module.exports = (sequelize, DataTypes) => {
     return await bcrypt.compare(password, this.password);
   };
 
+  Users.associate = (models) => {
+    Users.belongsToMany(models.Roles, {
+      through: "user_roles",
+      as: "roles",
+      foreignKey: "userId",
+    });
+  };
+
   return Users;
 };
