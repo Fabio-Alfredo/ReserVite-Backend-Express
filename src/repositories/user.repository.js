@@ -1,4 +1,4 @@
-const { Users } = require("../domain/models");
+const { Users, Roles } = require("../domain/models");
 
 /**
  * Añade un nuevo usuario a la base de datos
@@ -135,6 +135,23 @@ const updatePassword = async (id, password, t) => {
   return user;
 };
 
+const findAllByRole = async (roleId) => {
+  const users = await Users.findAll({
+    include: [
+      {
+        model: Roles,
+        where: { id: roleId },
+      },
+    ],
+  });
+  return users;
+};
+
+const findAll = async () => {
+  const users = await Users.findAll();
+  return users;
+};
+
 module.exports = {
   create,
   findById,
@@ -145,4 +162,6 @@ module.exports = {
   findByEmailAndUsername,
   updateRecoveryToken,
   updatePassword,
+  findAll,
+  findAllByRole,
 };
