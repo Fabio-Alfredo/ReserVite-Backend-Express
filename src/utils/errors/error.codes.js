@@ -13,6 +13,9 @@ const ERROR_CODES = {
   ROLE:{
     ROLE_NOT_FOUND: 3000,
     ROLE_ALREADY_EXISTS: 3001,
+  },
+  OPERATION:{
+    NOT_VALID: 4000,
   }
 };
 
