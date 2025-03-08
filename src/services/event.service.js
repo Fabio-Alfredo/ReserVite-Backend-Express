@@ -18,6 +18,14 @@ const createEvent = async (event, organizer) => {
         ErrorCodes.EVENT.EVENT_ALREADY_EXISTS
       );
     }
+
+    if(event.initial_date < new Date() || event.end_date <= event.initial_date) {
+      throw new ServiceError(
+        "Invalid dates",
+        ErrorCodes.EVENT.INVALID_DATES
+      );
+    }
+
     const newEvent = await event_repository.create(event, t);
     await newEvent.setOrganizer(organizer.id, { transaction: t });
 
