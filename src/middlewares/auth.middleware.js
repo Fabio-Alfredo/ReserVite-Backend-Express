@@ -1,6 +1,6 @@
 const createHttpError = require("http-errors");
 const createStrategy = require("../utils/jwt/jwt.util");
-const auth_service = require("../services/auth.service");
+const { user_service } = require("../services");
 
 /**
  * Middleware para validar la autenticación
@@ -11,14 +11,16 @@ const auth_service = require("../services/auth.service");
  */
 const authValidator = async (req, res, next) => {
   try {
-    const token = req.headers["authorization"];
-    if (!token) {
+    const auth = req.headers["authorization"];
+    if (!auth) {
       throw createHttpError(401, "Token is required");
     }
+    const token = auth.split(" ")[1];
+
     const tokenStrategy = createStrategy.createTokenStrategy("JWT");
     const payload = tokenStrategy.verifyToken(token);
 
-    const user = await auth_service.findById(payload.id);
+    const user = await user_service.findById(payload.id);
 
     if (!payload || user.session_token !== token) {
       throw createHttpError(401, "Invalid token");
