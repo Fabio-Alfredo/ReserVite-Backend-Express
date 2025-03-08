@@ -29,4 +29,27 @@ const authValidator = (req, res, next) => {
   }
 };
 
-module.exports = authValidator;
+/**
+ * Middleware para validar los roles
+ * @param {Array} roles - Roles permitidos
+ * @returns {Function} - Middleware function para validar los roles
+ */
+const roleValidator = (roles = []) => {
+  return (req, res, next) => {
+    try {
+      const { user } = req;
+      if (!roles.some((role) => user.roles.includes(role))) {
+        throw createHttpError(403, "Forbidden access");
+      }
+
+      next();
+    } catch (e) {
+      next(e);
+    }
+  };
+};
+
+module.exports = {
+  authValidator,
+  roleValidator,
+};
