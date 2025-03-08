@@ -20,9 +20,12 @@ const updatingRoles = async (userId, roleId, operation, admin) => {
   const t = await Transactions.starTransaction();
   try {
     const user = await user_repository.findById(userId);
-    
+
     if (!user || user.id == admin.id) {
-      throw new ServiceError("Invalid operation in user", ErrorCodes.USER.NOT_FOUND);
+      throw new ServiceError(
+        "Invalid operation in user",
+        ErrorCodes.USER.NOT_FOUND
+      );
     }
     const role = await role_service.findById(roleId);
 
@@ -109,13 +112,13 @@ const findByEmail = async (email) => {
 const findAllByRole = async (role = null) => {
   try {
     let users;
-
+    
     if (role) {
       await role_service.findById(role);
       users = await user_repository.findAllByRole(role);
+    } else {
+      users = await user_repository.findAll();
     }
-
-    users = await user_repository.findAll();
 
     return users;
   } catch (e) {
