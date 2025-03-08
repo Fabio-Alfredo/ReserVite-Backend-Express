@@ -3,6 +3,14 @@ const { ErrorCodes } = require("../utils/errors");
 const { event_service } = require("../services");
 const responseHandler = require("../helpers/responsehandler.helper");
 
+/**
+ * Crea un nuevo evento
+ *
+ * @param {Object} req - Request
+ * @param {Object} res - Response
+ * @param {Function} next - Next function
+ * @returns {Promise<void>}
+ */
 const createEvent = async (req, res, next) => {
   try {
     const event = req.body;
