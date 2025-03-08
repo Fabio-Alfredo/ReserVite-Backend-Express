@@ -18,6 +18,8 @@ const userRouter = Route();
  * @middleware
  * - assingRoleValidator => valida los campos del body
  * - validatorHandler => maneja los errores de validacion
+ * - auth_middleware.authValidator => valida el token
+ * - auth_middleware.roleValidator => valida el rol
  * @controller
  * - user_controller.assingRole => asigna un rol a un usuario
  */
@@ -37,6 +39,8 @@ userRouter.put(
  * @middleware
  * - findAllByRoleValidator => valida los campos del query
  * - validatorHandler => maneja los errores
+ * - auth_middleware.authValidator => valida el token
+ * - auth_middleware.roleValidator => valida el rol
  * @controller
  * - user_controller.findAllByRoles => busca todos los usuarios por roles
  */
@@ -55,6 +59,8 @@ userRouter.get(
  * @middleware
  * - findByIdValidator => valida los campos del param
  * - validatorHandler => maneja los
+ * - auth_middleware.authValidator => valida el token
+ * - auth_middleware.roleValidator => valida el rol
  * @controller
  * - user_controller.findById => busca un usuario por su id
  */
@@ -73,6 +79,8 @@ userRouter.get(
  * @middleware
  * - findByEmailValidator => valida los campos del param
  * - validatorHandler => maneja los errores
+ * - auth_middleware.authValidator => valida el token
+ * - auth_middleware.roleValidator => valida el rol
  * @controller
  * - user_controller.findByEmail => busca un usuario por su email
  */

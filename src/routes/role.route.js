@@ -16,6 +16,8 @@ const roleRouter = Route();
  * @middleware
  * - createValidator => valida los campos del body
  * - validatorHandler => maneja los errores de validacion
+ * - auth_middleware.authValidator => valida el token
+ * - auth_middleware.roleValidator => valida el rol
  * @controller
  * - role_controller.createRole => crea un nuevo rol
  */
@@ -35,6 +37,8 @@ roleRouter.post(
  * @middleware
  * - createValidator => valida los campos del body
  * - validatorHandler => maneja los errores de validacion
+ * - auth_middleware.authValidator => valida el token
+ * - auth_middleware.roleValidator => valida el rol
  * @controller
  * - role_controller.updateRole => actualiza un rol
  */
@@ -54,6 +58,8 @@ roleRouter.delete(
  * @middleware
  * - idValidator => valida el id
  * - validatorHandler => maneja los errores de validacion
+ * - auth_middleware.authValidator => valida el token
+ * - auth_middleware.roleValidator => valida el rol
  * @controller
  * - role_controller.findRoleById => busca un rol por su id
  */
