@@ -18,6 +18,9 @@ const createEvent = async (req, res, next) => {
       case ErrorCodes.SERVER.INTERNAL_SERVER_ERROR:
         next(createHttpError(500, e.message));
         break;
+      case ErrorCodes.EVENT.INVALID_DATES:
+        next(createHttpError(400, e.message));
+        break;
       default:
         next(e);
     }
