@@ -12,7 +12,7 @@ const roleRouter = Route();
 /**
  * @route POST /role/create
  * @description Crea un nuevo rol
- * @access Privado (admin)
+ * @access Privado (ADMIN)
  * @middleware
  * - createValidator => valida los campos del body
  * - validatorHandler => maneja los errores de validacion
@@ -22,7 +22,7 @@ const roleRouter = Route();
 roleRouter.post(
   "/create",
   auth_middleware.authValidator,
-  auth_middleware.roleValidator(["admin"]),
+  auth_middleware.roleValidator(["ADMIN"]),
   createValidator,
   validatorHandler,
   role_controller.createRole
@@ -31,7 +31,7 @@ roleRouter.post(
 /**
  * @route PUT /role/update
  * @description Actualiza un rol
- * @access Privado (admin)
+ * @access Privado (ADMIN)
  * @middleware
  * - createValidator => valida los campos del body
  * - validatorHandler => maneja los errores de validacion
@@ -41,7 +41,7 @@ roleRouter.post(
 roleRouter.delete(
   "/delete/:id",
   auth_middleware.authValidator,
-  auth_middleware.roleValidator(["admin"]),
+  auth_middleware.roleValidator(["ADMIN"]),
   idValidator,
   validatorHandler,
   role_controller.deleteRole
@@ -50,7 +50,7 @@ roleRouter.delete(
 /**
  * @route GET /role/findId/:id
  * @description Busca un rol por su id
- * @access Privado (admin)
+ * @access Privado (ADMIN)
  * @middleware
  * - idValidator => valida el id
  * - validatorHandler => maneja los errores de validacion
@@ -60,7 +60,7 @@ roleRouter.delete(
 roleRouter.get(
   "/findId/:id",
   auth_middleware.authValidator,
-  auth_middleware.roleValidator(["admin"]),
+  auth_middleware.roleValidator(["ADMIN"]),
   idValidator,
   validatorHandler,
   role_controller.findRoleById

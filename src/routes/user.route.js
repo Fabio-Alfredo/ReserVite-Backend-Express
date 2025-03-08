@@ -14,7 +14,7 @@ const userRouter = Route();
 /**
  * @route PUT /user/assign-role
  * @description Asigna un rol a un usuario
- * @access Privado (admin)
+ * @access Privado (ADMIN)
  * @middleware
  * - assingRoleValidator => valida los campos del body
  * - validatorHandler => maneja los errores de validacion
@@ -24,7 +24,7 @@ const userRouter = Route();
 userRouter.put(
   "/assign-role",
   auth_middleware.authValidator,
-  auth_middleware.roleValidator(["admin"]),
+  auth_middleware.roleValidator(["ADMIN"]),
   assingRoleValidator,
   validatorHandler,
   user_controller.assingRole
@@ -33,7 +33,7 @@ userRouter.put(
 /**
  * @route GET /user/all-by-role
  * @description Busca todos los usuarios por roles
- * @access Privado (admin)
+ * @access Privado (ADMIN)
  * @middleware
  * - findAllByRoleValidator => valida los campos del query
  * - validatorHandler => maneja los errores
@@ -43,7 +43,7 @@ userRouter.put(
 userRouter.get(
   "/all-by-role/",
   auth_middleware.authValidator,
-  auth_middleware.roleValidator(["admin"]),
+  auth_middleware.roleValidator(["ADMIN"]),
   findAllByRoleValidator,
   validatorHandler,
   user_controller.findAllByRoles
@@ -51,7 +51,7 @@ userRouter.get(
 /**
  * @route GET /user/find-by-id/:id
  * @description Busca un usuario por su id
- * @access Privado (admin)
+ * @access Privado (ADMIN)
  * @middleware
  * - findByIdValidator => valida los campos del param
  * - validatorHandler => maneja los
@@ -61,7 +61,7 @@ userRouter.get(
 userRouter.get(
   "/find-by-id/:id",
   auth_middleware.authValidator,
-  auth_middleware.roleValidator(["admin"]),
+  auth_middleware.roleValidator(["ADMIN"]),
   findByIdValidator,
   validatorHandler,
   user_controller.findById
@@ -69,7 +69,7 @@ userRouter.get(
 /**
  * @route GET /user/find-by-email/:email
  * @description Busca un usuario por su email
- * @access Privado (admin)
+ * @access Privado (ADMIN)
  * @middleware
  * - findByEmailValidator => valida los campos del param
  * - validatorHandler => maneja los errores
@@ -79,7 +79,7 @@ userRouter.get(
 userRouter.get(
   "/find-by-email/:email",
   auth_middleware.authValidator,
-  auth_middleware.roleValidator(["admin"]),
+  auth_middleware.roleValidator(["ADMIN"]),
   findByEmailValidator,
   validatorHandler,
   user_controller.findByEmail
