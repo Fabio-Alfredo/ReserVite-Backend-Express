@@ -51,7 +51,7 @@ const findAllByRoles = async (req, res, next) => {
 
     const { roleId } = req.query ;
     const users = await user_service.findAllByRole(roleId);
-    responseHandler(res, 200, "Users found", users || []);
+    responseHandler(res, 200, "Users found", users.map(userDTO));
   } catch (e) {
     switch (e.code) {
       case ErrorCodes.ROLE.ROLE_NOT_FOUND:
