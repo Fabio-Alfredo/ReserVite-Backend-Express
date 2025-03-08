@@ -1,9 +1,9 @@
-const { body } = require("express-validator");
+const { body, query, param } = require("express-validator");
 const operationRoles = require("../utils/constants/operationRoles.util");
 
 const listOperations = Object.values(operationRoles);
 
-const assingRole = [
+const assingRoleValidator = [
   body("userId")
     .trim()
     .notEmpty()
@@ -26,7 +26,37 @@ const assingRole = [
     .bail(),
 ];
 
+const findAllByRoleValidator = [
+  query("roleId")
+    .trim()
+    .optional()
+    .isString()
+    .matches(/^(?:[A-Z]+)?$/)
+    .withMessage("Role id is not valid")
+    .bail(),
+];
+
+const findByIdValidator = [
+  param("id")
+    .trim()
+    .notEmpty()
+    .isUUID()
+    .withMessage("Id user is required")
+    .bail(),
+];
+
+const findByEmailValidator = [
+  param("email")
+    .trim()
+    .notEmpty()
+    .isEmail()
+    .withMessage("Email is required")
+    .bail(),
+];
 
 module.exports = {
-  assingRole,
+  assingRoleValidator,
+  findAllByRoleValidator,
+  findByIdValidator,
+  findByEmailValidator,
 };
