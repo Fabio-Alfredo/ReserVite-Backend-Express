@@ -138,7 +138,16 @@ const updatePassword = async (id, password, t) => {
 };
 
 const findAllByRole = async (roleId) => {
-  const users = await Users.scope("withRoles").findAll({});
+  const users = await Users.findAll({
+    include: [
+      {
+        model: Roles,
+        as: "roles",
+        where: { id: roleId },
+        through: { attributes: [] },
+      },
+    ],
+  });
   return users;
 };
 
