@@ -56,9 +56,10 @@ const authUser = async (email, password) => {
 
     const tokenStrategy = createStrategy.createTokenStrategy("JWT");
 
+    const roles = user.roles.map((role) => role.id);
     const tokenData = tokenStrategy.generateToken({
       id: user.id,
-      email: user.email,
+      roles,
     });
 
     await user_repository.updateSessionToken(user.id, tokenData.token, t);
