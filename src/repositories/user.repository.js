@@ -1,5 +1,4 @@
 const { Users, Roles } = require("../domain/models");
-const { ASSING_ROLE } = require("../utils/constants/operationRoles.util");
 
 /**
  * Añade un nuevo usuario a la base de datos
@@ -20,7 +19,15 @@ const create = async (user, t) => {
  * @returns {Promise<*>} - Usuario encontrado
  */
 const findById = async (id) => {
-  const user = await Users.findByPk(id);
+  const user = await Users.findByPk(id, {
+    include: [
+      {
+        model: Roles,
+        as: "roles",
+        through: { attributes: [] },
+      },
+    ],
+  });
   return user;
 };
 
@@ -31,7 +38,16 @@ const findById = async (id) => {
  * @returns {Promise<*>} - Usuario encontrado
  */
 const findByEmail = async (email) => {
-  const user = await Users.findOne({ where: { email } });
+  const user = await Users.findOne({
+    where: { email },
+    include: [
+      {
+        model: Roles,
+        as: "roles",
+        through: { attributes: [] },
+      },
+    ],
+  });
   return user;
 };
 
@@ -141,7 +157,7 @@ const findAllByRole = async (roleId) => {
     include: [
       {
         model: Roles,
-        as:'roles',
+        as: "roles",
         where: { id: roleId },
       },
     ],
