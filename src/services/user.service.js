@@ -16,12 +16,13 @@ const {
  * @returns {Promise<*>} - Usuario actualizado
  * @throws {ServiceError} - Error al asignar el rol
  */
-const updatingRoles = async (userId, roleId, operation) => {
+const updatingRoles = async (userId, roleId, operation, admin) => {
   const t = await Transactions.starTransaction();
   try {
     const user = await user_repository.findById(userId);
-    if (!user) {
-      throw new ServiceError("User not exist", ErrorCodes.USER.NOT_FOUND);
+    
+    if (!user || user.id == admin.id) {
+      throw new ServiceError("Invalid operation in user", ErrorCodes.USER.NOT_FOUND);
     }
     const role = await role_service.findById(roleId);
 
