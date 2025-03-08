@@ -1,6 +1,7 @@
 const Route = require("express").Router;
 const role_controller = require("../controller/role.controller");
 const validatorHandler = require("../middlewares/errorHandler.middleware");
+const auth_middleware = require("../middlewares/auth.middleware");
 const {
   createValidator,
   idValidator,
@@ -20,6 +21,8 @@ const roleRouter = Route();
  */
 roleRouter.post(
   "/create",
+  auth_middleware.authValidator,
+  auth_middleware.roleValidator(["admin"]),
   createValidator,
   validatorHandler,
   role_controller.createRole
@@ -37,6 +40,8 @@ roleRouter.post(
  */
 roleRouter.delete(
   "/delete/:id",
+  auth_middleware.authValidator,
+  auth_middleware.roleValidator(["admin"]),
   idValidator,
   validatorHandler,
   role_controller.deleteRole
@@ -54,6 +59,8 @@ roleRouter.delete(
  */
 roleRouter.get(
   "/findId/:id",
+  auth_middleware.authValidator,
+  auth_middleware.roleValidator(["admin"]),
   idValidator,
   validatorHandler,
   role_controller.findRoleById

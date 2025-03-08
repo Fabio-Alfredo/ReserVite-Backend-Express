@@ -1,6 +1,7 @@
 const Route = require("express").Router;
 const user_controller = require("../controller/user.controller");
 const validatorHandler = require("../middlewares/validator.middleware");
+const auth_middleware = require("../middlewares/auth.middleware");
 const {
   assingRoleValidator,
   findAllByRoleValidator,
@@ -22,6 +23,8 @@ const userRouter = Route();
  */
 userRouter.put(
   "/assign-role",
+  auth_middleware.authValidator,
+  auth_middleware.roleValidator(["admin"]),
   assingRoleValidator,
   validatorHandler,
   user_controller.assingRole
@@ -39,6 +42,8 @@ userRouter.put(
  */
 userRouter.get(
   "/all-by-role/",
+  auth_middleware.authValidator,
+  auth_middleware.roleValidator(["admin"]),
   findAllByRoleValidator,
   validatorHandler,
   user_controller.findAllByRoles
@@ -55,6 +60,8 @@ userRouter.get(
  */
 userRouter.get(
   "/find-by-id/:id",
+  auth_middleware.authValidator,
+  auth_middleware.roleValidator(["admin"]),
   findByIdValidator,
   validatorHandler,
   user_controller.findById
@@ -71,6 +78,8 @@ userRouter.get(
  */
 userRouter.get(
   "/find-by-email/:email",
+  auth_middleware.authValidator,
+  auth_middleware.roleValidator(["admin"]),
   findByEmailValidator,
   validatorHandler,
   user_controller.findByEmail
