@@ -19,15 +19,7 @@ const create = async (user, t) => {
  * @returns {Promise<*>} - Usuario encontrado
  */
 const findById = async (id) => {
-  const user = await Users.findByPk(id, {
-    include: [
-      {
-        model: Roles,
-        as: "roles",
-        through: { attributes: [] },
-      },
-    ],
-  });
+  const user = await Users.scope("withRoles").findByPk(id);
   return user;
 };
 
@@ -38,15 +30,8 @@ const findById = async (id) => {
  * @returns {Promise<*>} - Usuario encontrado
  */
 const findByEmail = async (email) => {
-  const user = await Users.findOne({
+  const user = await Users.scope("withRoles").findOne({
     where: { email },
-    include: [
-      {
-        model: Roles,
-        as: "roles",
-        through: { attributes: [] },
-      },
-    ],
   });
   return user;
 };
