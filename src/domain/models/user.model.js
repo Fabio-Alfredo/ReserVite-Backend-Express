@@ -89,6 +89,7 @@ module.exports = (sequelize, DataTypes) => {
               through: {
                 attributes: [],
               },
+              required: false,
             },
           ],
         },
@@ -112,14 +113,13 @@ module.exports = (sequelize, DataTypes) => {
       as: "roles",
       foreignKey: "userId",
     });
-  };
-
-  Users.associate = (models) => {
+    
     Users.hasMany(models.Events, {
       foreignKey: "organizer_id",
       as: "events",
     });
   };
+
 
   return Users;
 };
