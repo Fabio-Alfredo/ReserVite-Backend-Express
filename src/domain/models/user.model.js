@@ -80,6 +80,19 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: true,
       tableName: "users",
       underscored: true,
+      scopes: {
+        withRoles: {
+          include: [
+            {
+              model: sequelize.models.Roles,
+              as: "roles",
+              through: {
+                attributes: [],
+              },
+            },
+          ],
+        },
+      },
     }
   );
 
