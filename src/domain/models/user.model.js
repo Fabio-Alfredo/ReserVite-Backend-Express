@@ -114,5 +114,12 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
+  Users.associate = (models) => {
+    Users.hasMany(models.Events, {
+      foreignKey: "organizer_id",
+      as: "events",
+    });
+  };
+
   return Users;
 };
