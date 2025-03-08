@@ -16,7 +16,10 @@ const ERROR_CODES = {
   },
   OPERATION:{
     NOT_VALID: 4000,
-  }
+  },
+  EVENT: {
+    EVENT_ALREADY_EXISTS: 5000,
+  },
 };
 
 module.exports = ERROR_CODES;
