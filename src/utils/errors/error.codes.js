@@ -19,6 +19,7 @@ const ERROR_CODES = {
   },
   EVENT: {
     EVENT_ALREADY_EXISTS: 5000,
+    INVALID_DATES: 5001,
   },
 };
 
