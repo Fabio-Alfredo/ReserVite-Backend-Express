@@ -103,10 +103,10 @@ const findById = async (req, res, next) => {
  * @param {Function} next - Pasa el control al siguiente manejador de solicitudes
  * @returns {Object} - Usuario encontrado
  */
-const findByEmail = (req, res, next) => {
+const findByEmail = async (req, res, next) => {
   try {
-    const { email } = req.param;
-    const user = user_service.findByEmail(email);
+    const { email } = req.params;
+    const user = await user_service.findByEmail(email);
     responseHandler(res, 200, "User found", userDTO(user));
   } catch (e) {
     switch (e.code) {
