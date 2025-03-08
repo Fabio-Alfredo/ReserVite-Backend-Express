@@ -15,7 +15,8 @@ const userDTO = require("../domain/dtos/user.dto");
 const assingRole = async (req, res, next) => {
   try {
     const { userId, roleId, operation } = req.body;
-    const user = await user_service.updatingRoles(userId, roleId, operation);
+    const admin = req.user;
+    const user = await user_service.updatingRoles(userId, roleId, operation, admin);
     responseHandler(res, 200, "Role assigned successfully", userDTO(user));
   } catch (e) {
     switch (e.code) {
