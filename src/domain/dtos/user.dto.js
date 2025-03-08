@@ -1,7 +1,7 @@
 const userDTO = (user) => {
   let roles = [];
   
-  if (user.roles.length > 0) {
+  if (user.roles && user.roles.length > 0 ) {
     roles = user.roles.map((role) => {
       return {
         id: role.id,
