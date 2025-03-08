@@ -55,8 +55,9 @@ const authUser = async (email, password) => {
     }
 
     const tokenStrategy = createStrategy.createTokenStrategy("JWT");
+    let roles = [];
+    if (user.roles.length === 0) roles = user.roles.map((role) => role.id);
 
-    const roles = user.roles.map((role) => role.id);
     const tokenData = tokenStrategy.generateToken({
       id: user.id,
       roles,
