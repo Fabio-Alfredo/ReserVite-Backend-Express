@@ -113,13 +113,17 @@ module.exports = (sequelize, DataTypes) => {
       as: "roles",
       foreignKey: "userId",
     });
-    
+
     Users.hasMany(models.Events, {
       foreignKey: "organizer_id",
       as: "events",
     });
-  };
 
+    Users.hasMany(models.Reservations, {
+      foreignKey: "userId",
+      as: "reservations",
+    });
+  };
 
   return Users;
 };
