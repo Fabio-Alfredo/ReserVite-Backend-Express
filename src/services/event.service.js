@@ -1,5 +1,5 @@
 const event_repository = require("../repositories/event.repository");
-const { user_service } = require("../services");
+const user_service = require("../services/user.service");
 const Transactions = require("../repositories/transaction.repository");
 const { ServiceError, ErrorCodes } = require("../utils/errors");
 
@@ -98,11 +98,14 @@ const findAll = async () => {
 const findAllByOrganizer = async (organizerId) => {
   try {
     const user = await user_service.findById(organizerId);
-    if (!user || user.role !== "ORGA") {
+
+    if (!user.roles.some((role) => role.name === "organizer")) {
       throw new ServiceError("Organizer not found", ErrorCodes.USER.NOT_FOUND);
     }
 
-    return await event_repository.findAllByOrganizer(organizer);
+    const events = await event_repository.findAllByOrganizer(user.id);
+
+    return events || [];
   } catch (e) {
     throw new ServiceError(
       e.message || "Error finding events",
