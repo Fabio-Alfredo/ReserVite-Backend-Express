@@ -2,6 +2,11 @@ const Route = require("express").Router;
 const event_controller = require("../controller/event.controller");
 const validatorHandler = require("../middlewares/validator.middleware");
 const auth_middleware = require("../middlewares/auth.middleware");
+const {
+  createValidator,
+  idValidator,
+  dateValidator,
+} = require("../validators/event.validator");
 
 const eventRouter = Route();
 
@@ -17,6 +22,8 @@ const eventRouter = Route();
 eventRouter.post(
   "/create",
   auth_middleware.authValidator,
+  createValidator,
+  validatorHandler,
   event_controller.createEvent
 );
 
@@ -32,6 +39,8 @@ eventRouter.post(
 eventRouter.get(
   "/find-by-id/:id",
   auth_middleware.authValidator,
+  idValidator,
+  validatorHandler,
   event_controller.findById
 );
 
@@ -62,6 +71,8 @@ eventRouter.get(
 eventRouter.get(
   "/find-all-by-organizer/:id",
   auth_middleware.authValidator,
+  idValidator,
+  validatorHandler,
   event_controller.findAllByOrganizer
 );
 
@@ -77,6 +88,8 @@ eventRouter.get(
 eventRouter.get(
   "/find-all-by-date/:date",
   auth_middleware.authValidator,
+  dateValidator,
+  validatorHandler,
   event_controller.findAllByDate
 );
 
