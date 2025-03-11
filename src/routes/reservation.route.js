@@ -59,6 +59,7 @@ reservationRouter.get(
 reservationRouter.get(
   "/find-all",
   auth_middleware.authValidator,
+  auth_middleware.roleValidator(["ADMIN", "ORG"]),
   reservation_controller.findAllReservations
 );
 
