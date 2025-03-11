@@ -1,3 +1,6 @@
+const statusReservation = require("../../utils/constants/statusReservation.util");
+const listStatus = Object.values(statusReservation);
+
 module.exports = (sequelize, DataTypes) => {
   const Reservations = sequelize.define(
     "Reservations",
@@ -12,9 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       status: {
-        type: DataTypes.ENUM("active", "cancelled"),
+        type: DataTypes.ENUM,
+        values: listStatus,
         allowNull: false,
-        defaultValue: "active",
+        defaultValue: "pending",
       },
       checked: {
         type: DataTypes.BOOLEAN,
