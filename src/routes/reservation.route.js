@@ -2,6 +2,10 @@ const Route = require("express").Router;
 const reservation_controller = require("../controller/reservation.controller");
 const validatorHandler = require("../middlewares/validator.middleware");
 const auth_middleware = require("../middlewares/auth.middleware");
+const {
+  createValidator,
+  findByIdValidator,
+} = require("../validators/reservation.validator");
 
 const reservationRouter = Route();
 
@@ -16,6 +20,8 @@ const reservationRouter = Route();
  */
 reservationRouter.post(
   "/create",
+  createValidator,
+  validatorHandler,
   auth_middleware.authValidator,
   reservation_controller.createReservation
 );
@@ -31,6 +37,8 @@ reservationRouter.post(
  */
 reservationRouter.get(
   "/find-by-id/:id",
+  findByIdValidator,
+  validatorHandler,
   auth_middleware.authValidator,
   reservation_controller.findReservationById
 );
