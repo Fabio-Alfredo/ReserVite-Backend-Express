@@ -1,6 +1,7 @@
 const event_repository = require("../repositories/event.repository");
 const user_service = require("../services/user.service");
 const Transactions = require("../repositories/transaction.repository");
+const status_reservation = require("../utils/constants/statusReservation.util");
 const { ServiceError, ErrorCodes } = require("../utils/errors");
 
 /**
@@ -136,10 +137,46 @@ const findAllByDate = async (date) => {
   }
 };
 
+/**
+ * Actualiza los asientos disponibles de un evento ya sea por una cancelación o confirmación
+ *
+ * @param {string} id - Id del evento
+ * @param {number} seats - Cantidad de asientos
+ * @param {string} actio - Acción a realizar
+ * @returns {Promise<*>} - Evento actualizado
+ */
+const updateSeats = async (id, seats, actio) => {
+  const t = await Transactions.starTransaction();
+  try {
+    const event = await findById(id);
+
+    let newSeats;
+
+    if (actio === status_reservation.CANCELED) {
+      newSeats = event.available_seats + seats;
+    } else if (actio === status_reservation.CONFIRMED) {
+      newSeats = event.available_seats - seats;
+    }
+
+    await event.update({ available_seats: newSeats }, { transaction: t });
+
+    await Transactions.commitTransaction(t);
+
+    return event;
+  } catch (e) {
+    await Transactions.rollbackTransaction(t);
+    throw new ServiceError(
+      e.message || "Error updating seats",
+      e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
 module.exports = {
   createEvent,
   findById,
   findAll,
   findAllByOrganizer,
   findAllByDate,
+  updateSeats,
 };
