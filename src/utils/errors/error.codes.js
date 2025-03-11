@@ -22,6 +22,11 @@ const ERROR_CODES = {
     INVALID_DATES: 5001,
     EVENT_NOT_FOUND: 5002,
   },
+  RESERVATION: {
+    NOT_ENOUGH_SEATS: 6000,
+    NOT_FOUND: 6001,
+    INVALID_STATUS: 6002,
+  },
 };
 
 module.exports = ERROR_CODES;
