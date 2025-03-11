@@ -1,5 +1,6 @@
 const reservation_repository = require("../repositories/reservation.repository");
 const event_service = require("../services/event.service");
+const user_service = require("../services/user.service");
 const Transacción = require("../repositories/transaction.repository");
 const status_reservation = require("../utils/constants/statusReservation.util");
 const { ErrorCodes, ServiceError } = require("../utils/errors");
@@ -118,9 +119,31 @@ const updateStatus = async (id, status) => {
   }
 };
 
+/**
+ * Busca todas las reservas de un usuario
+ *
+ * @param {Object} user - Usuario
+ * @returns {Promise<*>} - Reservas encontradas
+ */
+const MyReservations = async (user) => {
+  try {
+
+    await user_service.findById(user.id);
+    const reservations = await reservation_repository.findAllByUser(user.id);
+
+    return reservations || [];
+  } catch (e) {
+    throw new ServiceError(
+      e.message || "Error finding reservation",
+      e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
 module.exports = {
   createReservation,
   updateStatus,
   findById,
   findAll,
+  MyReservations,
 };
