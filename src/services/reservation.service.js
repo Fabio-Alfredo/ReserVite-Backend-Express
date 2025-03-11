@@ -62,6 +62,24 @@ const findById = async (id) => {
 };
 
 /**
+ * Busca todas las reservas
+ *
+ * @returns {Promise<*>} - Reservas encontradas
+ */
+const findAll = async () => {
+  try {
+    const reservations = await reservation_repository.findAll();
+
+    return reservations || [];
+  } catch (e) {
+    throw new ServiceError(
+      e.message || "Error finding reservation",
+      e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
+/**
  * Actualiza el estado de una reserva y las plazas disponibles del evento
  *
  * @param {string} id - Id de la reserva
@@ -104,4 +122,5 @@ module.exports = {
   createReservation,
   updateStatus,
   findById,
+  findAll,
 };
