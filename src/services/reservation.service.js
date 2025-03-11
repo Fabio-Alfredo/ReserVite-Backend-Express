@@ -26,6 +26,7 @@ const createReservation = async (reservation, user) => {
 
     const newReservation = await reservation_repository.create(reservation, t);
     await newReservation.setUser(user.id, { transaction: t });
+    await newReservation.setEvent(event.id, { transaction: t });
 
     await Transacción.commitTransaction(t);
     return newReservation;
@@ -127,7 +128,6 @@ const updateStatus = async (id, status) => {
  */
 const MyReservations = async (user) => {
   try {
-
     await user_service.findById(user.id);
     const reservations = await reservation_repository.findAllByUser(user.id);
 
