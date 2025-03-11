@@ -137,6 +137,12 @@ const updatePassword = async (id, password, t) => {
   return user;
 };
 
+/**
+ * Busca todos los usuarios con un rol específico
+ *
+ * @param {string} roleId - Id del rol
+ * @returns {Promise<*>} - Usuarios encontrados
+ */
 const findAllByRole = async (roleId) => {
   const users = await Users.findAll({
     include: [
@@ -151,6 +157,11 @@ const findAllByRole = async (roleId) => {
   return users;
 };
 
+/**
+ * Busca todos los usuarios
+ *
+ * @returns {Promise<*>} - Usuarios encontrados
+ */
 const findAll = async () => {
   const users = await Users.scope("withRoles").findAll();
   return users;
