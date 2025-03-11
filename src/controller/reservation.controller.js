@@ -101,7 +101,7 @@ const findAllReservations = async (req, res, next) => {
 const MyReservations = async (req, res, next) => {
   try {
     const user = req.user;
-    const reservations = await reservation_service.findAllByUser(user);
+    const reservations = await reservation_service.MyReservations(user);
     responseHandler(res, 200, "Reservations found", reservations);
   } catch (e) {
     switch (e.code) {
