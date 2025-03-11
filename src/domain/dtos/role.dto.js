@@ -1,3 +1,4 @@
+// Objetivo: Definir el DTO para la entidad Role
 const roleDTO = (role) => {
   return {
     id: role.id,

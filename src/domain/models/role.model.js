@@ -1,3 +1,11 @@
+/**
+ * Modelo de la tabla roles
+ * @typedef {Object} Roles
+ * @property {string} id - Identificador único del rol
+ * @property {string} name.required - Nombre del rol
+ * @property {Date} createdAt - Fecha de creación del rol
+ * @property {Date} updatedAt - Fecha de actualización del rol
+ */
 module.exports = (sequelize, DataTypes) => {
   const Roles = sequelize.define(
     "Roles",

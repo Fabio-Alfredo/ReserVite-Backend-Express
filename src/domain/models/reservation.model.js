@@ -1,6 +1,16 @@
 const statusReservation = require("../../utils/constants/statusReservation.util");
 const listStatus = Object.values(statusReservation);
 
+/**
+ * Modelo de la tabla reservations
+ * @typedef {Object} Reservations
+ * @property {UUID} id - Identificador único de la reserva
+ * @property {integer} quantity.required - Cantidad de asientos reservados
+ * @property {string} status.required - Estado de la reserva
+ * @property {boolean} checked.required - Indica si la reserva fue revisada
+ * @property {Date} createdAt - Fecha de creación de la reserva
+ * @property {Date} updatedAt - Fecha de actualización de la reserva
+ */
 module.exports = (sequelize, DataTypes) => {
   const Reservations = sequelize.define(
     "Reservations",

@@ -1,6 +1,10 @@
 const db = require('../../domain/models/index');
 const config = require('../config');
 
+/**
+ * Conexión con la base de datos
+ * @module src/config/dbconfig/dbConnection.config
+ */
 const dbConnection = async () => {
   try {
     await db.sequelize.authenticate();

@@ -1,3 +1,4 @@
+// Desc: DTO for user entity
 const userDTO = (user) => {
   let roles = [];
   

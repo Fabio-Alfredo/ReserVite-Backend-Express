@@ -1,3 +1,18 @@
+/**
+ * Modelo de la tabla events
+ * @typedef {Object} Events
+ * @property {UUID} id - Identificador único del evento
+ * @property {string} title.required - Título del evento
+ * @property {string} description.required - Descripción del evento
+ * @property {Date} initial_date.required - Fecha de inicio del evento
+ * @property {Date} end_date.required - Fecha de finalización del evento
+ * @property {string} location.required - Ubicación del evento
+ * @property {integer} capacity.required - Capacidad máxima del evento
+ * @property {integer} available_seats.required - Asientos disponibles del evento
+ * @property {decimal} price.required - Precio del evento
+ * @property {Date} createdAt - Fecha de creación del evento
+ * @property {Date} updatedAt - Fecha de actualización del evento
+ */
 module.exports = (sequelize, DataTypes) => {
   const Events = sequelize.define(
     "Events",

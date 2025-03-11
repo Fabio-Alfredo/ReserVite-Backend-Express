@@ -15,11 +15,13 @@ const {
   SECRET_KEY_RECOVERY_JWT,
 } = process.env;
 
+// Validar que las variables de entorno estén definidas
 const validatorEnv = (env, name) => {
   if (!env) throw new Error("The " + name + " is not defined");
   return env;
 };
 
+// Configuración de variables de entorno
 const config = {
   development: {
     node_env: validatorEnv(NODE_ENV, "NODE_ENV") || "development",
@@ -71,6 +73,7 @@ const config = {
   },
 };
 
+// Configuración de entorno
 const currentConfig = config[NODE_ENV] || config.development;
 
 module.exports = currentConfig;
