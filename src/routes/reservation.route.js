@@ -15,6 +15,8 @@ const reservationRouter = Route();
  * @access Privado
  * @middleware
  * - authValidator => valida el token del usuario
+ * - createValidator => valida los datos
+ * - validatorHandler => maneja los errores
  * @cotroller
  * - reservation_controller.createReservation => crea una nueva reserva
  */
@@ -32,6 +34,8 @@ reservationRouter.post(
  * @access Privado
  * @middleware
  * - authValidator => valida el token del usuario
+ * - findByIdValidator => valida el id
+ * - validatorHandler => maneja los errores
  * @cotroller
  * - reservation_controller.findReservationById => busca una reserva por su id
  */
