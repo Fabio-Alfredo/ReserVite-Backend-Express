@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ENUM,
         values: listStatus,
         allowNull: false,
-        defaultValue: "pending",
+        defaultValue: statusReservation.PENDING,
       },
       checked: {
         type: DataTypes.BOOLEAN,
