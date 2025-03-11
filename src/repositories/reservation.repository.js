@@ -35,8 +35,24 @@ const findAll = async () => {
   return reservations;
 };
 
+/**
+ * Busca todas las reservas de un usuario
+ *
+ * @param {string} userId - Id del usuario
+ * @returns {Promise<*>} - Reservas encontradas
+ */
+const findAllByUser = async (userId) => {
+  const reservations = await Reservations.findAll({
+    where: {
+      userId,
+    },
+  });
+  return reservations;
+};
+
 module.exports = {
   create,
   findById,
   findAll,
+  findAllByUser,
 };
