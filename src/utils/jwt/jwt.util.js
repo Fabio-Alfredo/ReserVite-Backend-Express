@@ -1,4 +1,4 @@
-const { sign, verify } = require("jsonwebtoken");
+const { sign, verify, TokenExpiredError } = require("jsonwebtoken");
 const config = require("../../config/config");
 
 /**
@@ -33,8 +33,13 @@ const TokenStrategies = {
      * @returns {Object} - Datos del token
      */
     verifyToken: (token) => {
-      const payload = verify(token, config.secret_key_jwt);
-      return payload;
+      try {
+        const payload = verify(token, config.secret_key_jwt);
+        return { valid: true, payload };
+      } catch (e) {
+        if (e instanceof TokenExpiredError)
+          return { valid: false, message: "Token expired" };
+      }
     },
   },
 
@@ -47,8 +52,13 @@ const TokenStrategies = {
     },
 
     verifyToken: (token) => {
-      const payload = verify(token, config.secret_key_recovery_jwt);
-      return payload;
+      try {
+        const payload = verify(token, config.secret_key_recovery_jwt);
+        return { valid: true, payload };
+      } catch (e) {
+        if (e instanceof TokenExpiredError)
+          return { valid: false, message: "Token expired" };
+      }
     },
   },
 
