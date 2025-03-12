@@ -11,22 +11,19 @@ const { user_service } = require("../services");
  */
 const authValidator = async (req, res, next) => {
   try {
-    const auth = req.headers["authorization"];
-    if (!auth) {
-      throw createHttpError(401, "Token is required");
-    }
-    const token = auth.split(" ")[1];
+    const token = req.headers?.authorization?.split(" ")[1];
+    if (!token) return next(createHttpError(401, "Unauthorized"));
 
     const tokenStrategy = createStrategy.createTokenStrategy("JWT");
-    const payload = tokenStrategy.verifyToken(token);
+    const { valid, payload } = tokenStrategy.verifyToken(token);
+
+    if (!valid) return next(createHttpError(401, "Unauthorized"));
 
     const user = await user_service.findById(payload.id);
+    if (!user || user.session_token !== token)
+      return next(createHttpError(401, "Unauthorized"));
 
-    if (!payload || user.session_token !== token) {
-      throw createHttpError(401, "Invalid token");
-    }
-
-    req.user = payload;
+    req.user = payload.payload;
     req.token = token;
     next();
   } catch (e) {
