@@ -7,12 +7,12 @@ const createEmailTemplate = (type, data) => {
         html: `<p>Hola,</p><p>Haz clic en el siguiente enlace para recuperar tu contraseña:</p><a href="${data.recoveryLink}">${data.recoveryLink}</a>`,
       };
 
-    case "purchaseConfirmation":
+    case "paymentConfirmation":
       return {
         subject: "🎟 Confirmación de Compra",
         text: "Adjunto encontrarás tu entrada en formato PDF.",
         html: `<p>Gracias por tu compra. Adjuntamos tu entrada en PDF.</p>`,
-        attachmentPath: data.ticketPdfPath, // Si hay un archivo, lo añadimos
+        attachmentPath: data, // Si hay un archivo, lo añadimos
       };
 
     case "welcome":
