@@ -2,7 +2,7 @@ const user_repository = require("../repositories/user.repository");
 const { ServiceError, ErrorCodes } = require("../utils/errors");
 const createStrategy = require("../utils/jwt/jwt.util");
 const Transactions = require("../repositories/transaction.repository");
-const createEmail = require("../helpers/sedEmail.helper");
+const sedEmail = require("../helpers/sedEmail.helper");
 
 /**
  * Registra un nuevo usuario
@@ -101,12 +101,9 @@ const recoverPassword = async (email, name) => {
       email: exists.email,
     });
 
-    await createEmail(
-      email,
-      "Recover Password",
-      "Recover your password",
-      `<a href="http://localsocketPath:3000/recover/${token}">Recover Password</a>`
-    );
+    await sedEmail(exists.email, "passwordRecovery", {
+      recoveryLink: `http://localhost:3000/reset-password?token=${token}`,
+    });
 
     await user_repository.updateRecoveryToken(exists.id, token, t);
 
