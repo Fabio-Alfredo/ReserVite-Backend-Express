@@ -1,8 +1,14 @@
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
+const path = require("path");
 
 const generateTicketPDF = (ticketData, outputPath) => {
   return new Promise((resolve, reject) => {
+    const dir = path.dirname(outputPath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
     const doc = new PDFDocument();
     const stream = fs.createWriteStream(outputPath);
 
