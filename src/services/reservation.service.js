@@ -88,8 +88,7 @@ const findAll = async () => {
  * @param {string} status - Nuevo estado de la reserva
  * @returns {Promise<*>} - Reserva actualizada
  */
-const updateStatus = async (id, status) => {
-  const t = await Transacción.starTransaction();
+const updateStatus = async (id, status, t) => {
   try {
     const reservation = await findById(id);
 
@@ -109,10 +108,8 @@ const updateStatus = async (id, status) => {
 
     await reservation.update({ status: status }, { transaction: t });
 
-    await Transacción.commitTransaction(t);
     return reservation;
   } catch (e) {
-    await Transacción.rollbackTransaction(t);
     throw new ServiceError(
       e.message || "Error updating reservation",
       e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
