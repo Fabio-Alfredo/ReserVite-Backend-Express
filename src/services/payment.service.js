@@ -21,6 +21,13 @@ const createPayment = async (payment, user) => {
       );
     }
 
+    // if (reservation.status !== "PENDING") {
+    //   throw new ServiceError(
+    //     "Reservation is not pending",
+    //     ErrorCodes.RESERVATION.NOT_PENDING
+    //   );
+    // }
+
     const newPayment = await payment_repository.create(payment, t);
     await reservation_service.updateStatus(reservation.id, "CONFIRMED", t);
 
@@ -36,7 +43,7 @@ const createPayment = async (payment, user) => {
         // location: reservation.event.location,
         seats: reservation.quantity,
       },
-      "ticket.pdf"
+      `./tickets/ticket_${newPayment.id}.pdf`
     );
 
     await sendEmail(Existsuser.email, "paymentConfirmation", pdf);
