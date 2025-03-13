@@ -23,7 +23,8 @@ const authValidator = async (req, res, next) => {
     if (!user || user.session_token !== token)
       return next(createHttpError(401, "Unauthorized"));
 
-    req.user = payload.payload;
+
+    req.user = payload;
     req.token = token;
     next();
   } catch (e) {
