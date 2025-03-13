@@ -3,6 +3,7 @@ const config = require("../config/config");
 const ServiceError = require("../utils/errors/service.error");
 const ErrorCodes = require("../utils/errors/error.codes");
 const createEmailTemplate = require("../utils/templates/emailTemplate.util");
+const path = require("path");
 
 /**
  * Configuración del servicio de correo
