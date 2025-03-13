@@ -26,4 +26,15 @@ module.exports = (sequelize, DataTypes) => {
       underscored: true,
     }
   );
+
+  Payment.associate = (models) => {
+    Payment.hasOne(models.Reservations, {
+      as: "reservation",
+      foreignKey: "reservationId",
+    });
+    Payment.belongsTo(models.Users, {
+      as: "user",
+      foreignKey: "userId",
+    });
+  };
 };
