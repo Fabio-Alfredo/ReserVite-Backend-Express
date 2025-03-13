@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const Payment = sequelize.define(
-    "Payment",
+  const Payments = sequelize.define(
+    "Payments",
     {
       id: {
         primaryKey: true,
@@ -27,14 +27,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Payment.associate = (models) => {
-    Payment.hasOne(models.Reservations, {
+  Payments.associate = (models) => {
+    Payments.hasOne(models.Reservations, {
       as: "reservation",
       foreignKey: "reservationId",
     });
-    Payment.belongsTo(models.Users, {
+    Payments.belongsTo(models.Users, {
       as: "user",
       foreignKey: "userId",
     });
   };
+
+    return Payments;
 };
