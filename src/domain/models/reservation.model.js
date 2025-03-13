@@ -16,9 +16,9 @@ module.exports = (sequelize, DataTypes) => {
     "Reservations",
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         primaryKey: true,
-        autoIncrement: true,
+        defaultValue: DataTypes.UUIDV4,
       },
       quantity: {
         type: DataTypes.INTEGER,
