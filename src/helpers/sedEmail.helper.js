@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer");
 const config = require("../config/config");
 const ServiceError = require("../utils/errors/service.error");
 const ErrorCodes = require("../utils/errors/error.codes");
+const createEmailTemplate = require("../utils/templates/emailTemplate.util");
 
 /**
  * Configuración del servicio de correo
@@ -15,27 +16,40 @@ const transporter = nodemailer.createTransport({
 });
 
 /**
- * Crea un correo electrónico
- * @param {string} to - Destinatario
- * @param {string} subject - Asunto del correo
- * @param {string} text - Texto del correo
- * @param {string} html - HTML del correo
+ * Envia un correo basado en una plantilla predefinida.
+ * @param {string} to - Destinatario del correo.
+ * @param {string} type - Tipo de correo (ej. "passwordRecovery", "purchaseConfirmation").
+ * @param {object} data - Datos necesarios para generar el correo.
  */
-const createMail = async (to, subject, text, html) => {
+const sendMail = async (to, type, data) => {
   try {
-    await transporter.sendMail({
+    const template = createEmailTemplate(type, data);
+
+    const mailOptions = {
       from: config.email.company_name,
       to,
-      subject,
-      text,
-      html,
-    });
+      subject: template.subject,
+      text: template.text,
+      html: template.html,
+    };
+
+    // Si hay un archivo adjunto, lo agregamos
+    if (template.attachmentPath) {
+      mailOptions.attachments = [
+        {
+          filename: path.basename(template.attachmentPath),
+          path: template.attachmentPath,
+        },
+      ];
+    }
+
+    await transporter.sendMail(mailOptions);
   } catch (e) {
     throw new ServiceError(
-      "Error sending email",
-      ErrorCodes.INTERNAL_SERVER_ERROR
+      e.message || "Error sending email",
+      e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
     );
   }
 };
 
-module.exports = createMail;
+module.exports = sendMail;
