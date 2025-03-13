@@ -26,6 +26,7 @@ const ERROR_CODES = {
     NOT_ENOUGH_SEATS: 6000,
     NOT_FOUND: 6001,
     INVALID_STATUS: 6002,
+    NOT_PENDING: 6003,
   },
 };
 
