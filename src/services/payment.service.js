@@ -6,6 +6,13 @@ const Transactions = require("../repositories/transaction.repository");
 const generatePDF = require("../helpers/generatePDF.helper");
 const sendEmail = require("../helpers/sedEmail.helper");
 
+/**
+ * Crea un nuevo pago
+ *
+ * @param {Object} payment - Datos del pago
+ * @param {Object} user - Usuario que realiza el pago
+ * @returns {Promise<*>} - Pago creado
+ */
 const createPayment = async (payment, user) => {
   const t = await Transactions.starTransaction();
   try {
@@ -53,6 +60,27 @@ const createPayment = async (payment, user) => {
   }
 };
 
+/**
+ * Busca todos los pagos de un usuario
+ *
+ * @param {string} userId - Id del usuario
+ * @returns {Promise<*>} - Pagos encontrados
+ */
+const findAllByUser = async (userId) => {
+  try {
+    await user_service.findById(userId);
+
+    const payments = await payment_repository.findAllByUser(userId);
+    return payments;
+  } catch (e) {
+    throw new ServiceError(
+      e.message || "Error finding payments",
+      e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
 module.exports = {
   createPayment,
+  findAllByUser,
 };
