@@ -14,20 +14,14 @@ const createPayment = async (payment, user) => {
       payment.reservation_id
     );
 
-    if (!Existsuser || !reservation) {
+    if (reservation.status !== "PENDING") {
       throw new ServiceError(
-        "User or reservation not found",
-        ErrorCodes.USER.NOT_FOUND
+        "Reservation is not pending",
+        ErrorCodes.RESERVATION.NOT_PENDING
       );
     }
 
-    // if (reservation.status !== "PENDING") {
-    //   throw new ServiceError(
-    //     "Reservation is not pending",
-    //     ErrorCodes.RESERVATION.NOT_PENDING
-    //   );
-    // }
-
+    payment.amount = reservation.price;
     const newPayment = await payment_repository.create(payment, t);
     await reservation_service.updateStatus(reservation.id, "CONFIRMED", t);
 
