@@ -23,7 +23,7 @@ const createReservation = async (reservation, user) => {
         ErrorCodes.RESERVATION.NOT_ENOUGH_SEATS
       );
     }
-
+    reservation.price = parseFloat(event.price) * reservation.quantity;
     const newReservation = await reservation_repository.create(reservation, t);
     await newReservation.setUser(user.id, { transaction: t });
     await newReservation.setEvent(event.id, { transaction: t });
