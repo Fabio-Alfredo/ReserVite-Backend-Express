@@ -16,7 +16,7 @@ const registerUser = async (req, res, next) => {
     const user = req.body;
     const newUser = await auth_service.register(user);
 
-    responseHandler(res, 201, "User created successfully", newUser);
+    responseHandler(res, 201, "User created successfully");
   } catch (e) {
     switch (e.code) {
       case ErrorCodes.USER.EMAIL_ALREADY_EXISTS:
