@@ -11,5 +11,10 @@ paymentRouter.post(
   payment_controller.createPayment
 );
 
+paymentRouter.get(
+  "/",
+  auth_middleware.authValidator,
+  payment_controller.findAllByUser
+);
 
 module.exports = paymentRouter;
