@@ -12,6 +12,12 @@ const create = async (paymet) => {
   return newPayment;
 };
 
+/**
+ * Busca todos los pagos de un usuario
+ *
+ * @param {Number} userId - ID del usuario
+ * @returns {Promise<*>} - Lista de pagos
+ */
 const findAllByUser = async (userId) => {
   const payments = await Payments.findAll({
     where: { user_id: userId },
