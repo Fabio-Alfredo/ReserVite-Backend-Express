@@ -22,6 +22,7 @@ const eventRouter = Route();
 eventRouter.post(
   "/create",
   auth_middleware.authValidator,
+  auth_middleware.roleValidator(["ADMIN"]),
   createValidator,
   validatorHandler,
   event_controller.createEvent
