@@ -28,6 +28,9 @@ const ERROR_CODES = {
     INVALID_STATUS: 6002,
     NOT_PENDING: 6003,
   },
+  PAYMENT: {
+    NOT_FOUND: 7000,
+  },
 };
 
 module.exports = ERROR_CODES;
