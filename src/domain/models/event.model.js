@@ -97,7 +97,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       price: {
         allowNull: false,
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(10, 2),
         validators: {
           notNull: {
             msg: "Price is required",
