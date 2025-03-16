@@ -78,6 +78,17 @@ reservationRouter.get(
   reservation_controller.MyReservations
 );
 
+/**
+ * @route DELETE /reservation/delete/:id
+ * @description Elimina una reserva
+ * @access Privado
+ * @middleware
+ * - authValidator => valida el token del usuario
+ * - findByIdValidator => valida el id
+ * - validatorHandler => maneja los errores
+ * @cotroller
+ * - reservation_controller.deleteReservation => elimina una reserva
+ */
 reservationRouter.patch(
   "/usage/:id",
   auth_middleware.authValidator,

@@ -3,6 +3,14 @@ const { payment_service } = require("../services");
 const { ErrorCodes } = require("../utils/errors");
 const responseHandler = require("../helpers/responsehandler.helper");
 
+/**
+ * Crea un nuevo pago
+ *
+ * @param {Object} req - Datos de la solicitud
+ * @param {Object} res - Respuesta de la solicitud
+ * @param {Function} next - Pasa el control al siguiente manejador de solicitudes
+ * @returns {Object} - Pago creado
+ */
 const createPayment = async (req, res, next) => {
   try {
     const payment = req.body;
@@ -29,6 +37,14 @@ const createPayment = async (req, res, next) => {
   }
 };
 
+/**
+ * Busca todos los pagos de un usuario
+ *
+ * @param {Object} req - Datos de la solicitud
+ * @param {Object} res - Respuesta de la solicitud
+ * @param {Function} next - Pasa el control al siguiente manejador de solicitudes
+ * @returns {Object} - Pagos encontrados
+ */
 const findAllByUser = async (req, res, next) => {
   try {
     const userId = req.user.id;

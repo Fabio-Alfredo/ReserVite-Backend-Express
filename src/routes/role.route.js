@@ -72,6 +72,21 @@ roleRouter.get(
   role_controller.findRoleById
 );
 
-roleRouter.get("/findAll", role_controller.findAllRoles);
+/**
+ * @route GET /role/findAll
+ * @description Busca todos los roles
+ * @access Privado (ADMIN)
+ * @middleware
+ * - authValidator => valida el token del usuario
+ * - roleValidator => valida el rol del usuario 
+ * @cotroller
+ * - role_controller.findAllRoles => busca todos los roles
+ */
+roleRouter.get(
+  "/findAll",
+  auth_middleware.authValidator,
+  auth_middleware.roleValidator(["ADMIN"]),
+  role_controller.findAllRoles
+);
 
 module.exports = roleRouter;
