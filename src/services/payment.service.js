@@ -21,10 +21,10 @@ const createPayment = async (payment, user) => {
       payment.reservation_id
     );
 
-    if (reservation.status !== "PENDING") {
+    if (reservation.status !== "PENDING" || reservation.userId !== user.id) {
       throw new ServiceError(
-        "Reservation is not pending",
-        ErrorCodes.RESERVATION.NOT_PENDING
+        "Reservation not Found Invalid data user or status",
+        ErrorCodes.RESERVATION.NOT_FOUND
       );
     }
 
