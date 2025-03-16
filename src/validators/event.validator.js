@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 
 const createValidator = [
   body("title")
@@ -62,7 +62,7 @@ const createValidator = [
 ];
 
 const idValidator = [
-  body("id").trim().notEmpty().isUUID().withMessage("Id is required").bail(),
+  param("id").trim().notEmpty().isUUID().withMessage("Id is required").bail(),
 ];
 
 const dateValidator = [
