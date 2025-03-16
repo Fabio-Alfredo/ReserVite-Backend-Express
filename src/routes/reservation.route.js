@@ -78,4 +78,11 @@ reservationRouter.get(
   reservation_controller.MyReservations
 );
 
+reservationRouter.patch(
+  "/usage/:id",
+  auth_middleware.authValidator,
+  auth_middleware.roleValidator(["ADMIN"]),
+  reservation_controller.usageReservation
+);
+
 module.exports = reservationRouter;
