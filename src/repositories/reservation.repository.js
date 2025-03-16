@@ -21,7 +21,9 @@ const create = async (reservation, t) => {
  * @returns {Promise<*>} - Reserva encontrada
  */
 const findById = async (id) => {
-  const reservation = await Reservations.findByPk(id);
+  const reservation = await Reservations.findByPk(id,{
+    include: ["event"],
+  });
   return reservation;
 };
 
