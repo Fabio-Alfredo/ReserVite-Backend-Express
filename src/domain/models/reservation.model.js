@@ -58,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     Reservations.hasOne(models.Payments, {
       as: "payment",
-      foreignKey: "paymentId",
+      foreignKey: "reservationId",
     });
   };
 
