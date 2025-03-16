@@ -117,6 +117,29 @@ const updateStatus = async (id, status, t) => {
   }
 };
 
+const usageReservation = async (id) => {
+  const t = await Transacción.starTransaction();
+  try {
+    const reservation = await findById(id);
+    if (reservation.status !== "PAID") {
+      throw new ServiceError(
+        "Reservation not found",
+        ErrorCodes.RESERVATION.INVALID_STATUS
+      );
+    }
+    await reservation.update({ status: "USED" }, { transaction: t });
+    
+    await Transacción.commitTransaction(t);
+    return reservation;
+  } catch (e) {
+    await Transacción.rollbackTransaction(t);
+    throw new ServiceError(
+      e.message || "Error finding reservation",
+      e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
 /**
  * Busca todas las reservas de un usuario
  *
@@ -143,4 +166,5 @@ module.exports = {
   findById,
   findAll,
   MyReservations,
+  usageReservation,
 };
