@@ -5,6 +5,7 @@ const { ErrorCodes, ServiceError } = require("../utils/errors");
 const Transactions = require("../repositories/transaction.repository");
 const generatePDF = require("../helpers/generatePDF.helper");
 const sendEmail = require("../helpers/sedEmail.helper");
+const status_reservation = require("../utils/constants/statusReservation.util");
 
 /**
  * Crea un nuevo pago
@@ -21,7 +22,7 @@ const createPayment = async (payment, user) => {
       payment.reservation_id
     );
 
-    if (reservation.status !== "PENDING" || reservation.userId !== user.id) {
+    if (reservation.status !== status_reservation.PENDING || reservation.userId !== user.id) {
       throw new ServiceError(
         "Reservation not Found Invalid data user or status",
         ErrorCodes.RESERVATION.NOT_FOUND
@@ -30,7 +31,7 @@ const createPayment = async (payment, user) => {
 
     payment.amount = reservation.price;
     const newPayment = await payment_repository.create(payment, t);
-    await reservation_service.updateStatus(reservation.id, "PAID", t);
+    await reservation_service.updateStatus(reservation.id, status_reservation.PAID, t);
 
     await newPayment.setUser(Existsuser.id, { transaction: t });
     await newPayment.setReservation(reservation.id, { transaction: t });

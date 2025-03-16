@@ -24,6 +24,7 @@ const createReservation = async (reservation, user) => {
       );
     }
     reservation.price = parseFloat(event.price) * reservation.quantity;
+
     const newReservation = await reservation_repository.create(reservation, t);
     await newReservation.setUser(user.id, { transaction: t });
     await newReservation.setEvent(event.id, { transaction: t });
@@ -122,13 +123,13 @@ const usageReservation = async (id) => {
   try {
     const reservation = await findById(id);
 
-    if (reservation.status !== "PAID") {
+    if (reservation.status !== status_reservation.PAID) {
       throw new ServiceError(
         "Reservation not found",
         ErrorCodes.RESERVATION.INVALID_STATUS
       );
     }
-    await reservation.update({ status: "USED" }, { transaction: t });
+    await reservation.update({ status: status_reservation.USED }, { transaction: t });
 
     await Transacción.commitTransaction(t);
     return reservation;
