@@ -120,9 +120,41 @@ const MyReservations = async (req, res, next) => {
   }
 };
 
+/**
+ * Usa una reserva
+ *
+ * @param {Object} req - Request
+ * @param {Object} res - Response
+ * @param {Function} next - Next function
+ * @returns {Promise<void>} - Reserva usada
+ */
+const usageReservation = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const reservation = await reservation_service.usageReservation(id);
+    responseHandler(res, 200, "Reservation used", reservation);
+  } catch (e) {
+    switch (e.code) {
+      case ErrorCodes.RESERVATION.NOT_FOUND:
+        next(createHttpError(404, e.message));
+        break;
+      case ErrorCodes.RESERVATION.INVALID_STATUS:
+        next(createHttpError(400, e.message));
+        break;
+      case ErrorCodes.RESERVATION.NOT_FOUND:
+        next(createHttpError(404, e.message));
+        break;
+      case ErrorCodes.SERVER.INTERNAL_SERVER_ERROR:
+        next(createHttpError(500, e.message));
+        break;
+    }
+  }
+};
+
 module.exports = {
   createReservation,
   findReservationById,
   findAllReservations,
   MyReservations,
+  usageReservation,
 };
