@@ -48,7 +48,7 @@ const createReservation = async (reservation, user) => {
 const findById = async (id) => {
   try {
     const reservation = await reservation_repository.findById(id);
-    if (!reservation) {
+    if (!reservation || reservation.event.end_date > new Date()) {
       throw new ServiceError(
         "Reservation not found",
         ErrorCodes.RESERVATION.NOT_FOUND
@@ -121,6 +121,7 @@ const usageReservation = async (id) => {
   const t = await Transacción.starTransaction();
   try {
     const reservation = await findById(id);
+
     if (reservation.status !== "PAID") {
       throw new ServiceError(
         "Reservation not found",
@@ -128,7 +129,7 @@ const usageReservation = async (id) => {
       );
     }
     await reservation.update({ status: "USED" }, { transaction: t });
-    
+
     await Transacción.commitTransaction(t);
     return reservation;
   } catch (e) {
