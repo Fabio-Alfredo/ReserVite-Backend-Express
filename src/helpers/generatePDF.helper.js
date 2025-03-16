@@ -18,7 +18,7 @@ const generateTicketPDF = (ticketData, outputPath) => {
     }
 
     // Generar el código QR
-    const qrData = JSON.stringify(ticketData);
+    const qrData = JSON.stringify(ticketData.reservation);
     const qrPath = path.join(dir, "ticket_qr.png");
     await QRCode.toFile(qrPath, qrData, { width: 150 });
 
