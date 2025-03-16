@@ -66,7 +66,7 @@ const idValidator = [
 ];
 
 const dateValidator = [
-  body("date")
+  param("date")
     .trim()
     .notEmpty()
     .isISO8601()
