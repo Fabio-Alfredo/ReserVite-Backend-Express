@@ -154,7 +154,7 @@ const updateSeats = async (id, seats, actio) => {
 
     if (actio === status_reservation.CANCELED) {
       newSeats = event.available_seats + parseInt(seats);
-    } else if (actio === status_reservation.CONFIRMED) {
+    } else if (actio === status_reservation.PAID) {
       newSeats = event.available_seats - parseInt(seats);
     }
 

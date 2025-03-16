@@ -30,7 +30,7 @@ const createPayment = async (payment, user) => {
 
     payment.amount = reservation.price;
     const newPayment = await payment_repository.create(payment, t);
-    await reservation_service.updateStatus(reservation.id, "CONFIRMED", t);
+    await reservation_service.updateStatus(reservation.id, "PAID", t);
 
     await newPayment.setUser(Existsuser.id, { transaction: t });
     await newPayment.setReservation(reservation.id, { transaction: t });
