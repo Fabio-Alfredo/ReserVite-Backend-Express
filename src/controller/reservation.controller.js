@@ -130,7 +130,7 @@ const MyReservations = async (req, res, next) => {
  */
 const usageReservation = async (req, res, next) => {
   try {
-    const { id } = req. ;
+    const { id } = req.params;
     const reservation = await reservation_service.usageReservation(id);
     responseHandler(res, 200, "Reservation used", reservation);
   } catch (e) {
