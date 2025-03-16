@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
       as: "user",
       foreignKey: "userId",
     });
-    Reservations.belongsTo(models.Payments, {
+    Reservations.hasOne(models.Payments, {
       as: "payment",
       foreignKey: "paymentId",
     });

@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Payments.associate = (models) => {
-    Payments.hasOne(models.Reservations, {
+    Payments.belongsTo(models.Reservations, {
       as: "reservation",
       foreignKey: "reservationId",
     });
