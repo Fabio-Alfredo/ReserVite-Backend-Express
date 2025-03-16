@@ -82,6 +82,8 @@ reservationRouter.patch(
   "/usage/:id",
   auth_middleware.authValidator,
   auth_middleware.roleValidator(["ADMIN"]),
+  findByIdValidator,
+  validatorHandler,
   reservation_controller.usageReservation
 );
 
