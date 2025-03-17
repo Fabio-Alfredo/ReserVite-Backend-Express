@@ -6,6 +6,7 @@ const {
   createValidator,
   idValidator,
   dateValidator,
+  updateValidator,
 } = require("../validators/event.validator");
 
 const eventRouter = Route();
@@ -94,4 +95,24 @@ eventRouter.get(
   event_controller.findAllByDate
 );
 
+/**
+ * @route PUT /event/update/:id
+ * @description Actualiza un evento
+ * @access Privado
+ * @middleware
+ * - authValidator => valida el token del usuario
+ * - roleValidator => valida el rol del usuario
+ * - updateValidator => valida los campos del body
+ * - validatorHandler => maneja los errores de validacion
+ * @cotroller
+ * - event_controller.update => actualiza un evento
+ */
+eventRouter.put(
+  "/update/:id",
+  auth_middleware.authValidator,
+  auth_middleware.roleValidator(["ADMIN"]),
+  updateValidator,
+  validatorHandler,
+  event_controller.updateEventIformation
+);
 module.exports = eventRouter;
