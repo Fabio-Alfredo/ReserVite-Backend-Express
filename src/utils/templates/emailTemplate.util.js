@@ -1,3 +1,10 @@
+/**
+ * Función que crea un objeto con la estructura de un correo electrónico
+ *
+ * @param {string} type - Tipo de correo
+ * @param {Object} data - Datos del correo
+ * @returns {Object} - Objeto con la estructura de un correo electrónico
+ */
 const createEmailTemplate = (type, data) => {
   switch (type) {
     case "passwordRecovery":
