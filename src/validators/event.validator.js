@@ -74,8 +74,54 @@ const dateValidator = [
     .bail(),
 ];
 
+const updateValidator = [
+  param("id").trim().notEmpty().isUUID().withMessage("Id is required").bail(),
+  body("title")
+    .optional()
+    .trim()
+    .notEmpty()
+    .isString()
+    .withMessage("Title event is required")
+    .isLength({ min: 5 })
+    .withMessage("Title must be at least 5 characters")
+    .bail(),
+  body("description")
+    .optional()
+    .trim()
+    .notEmpty()
+    .isString()
+    .withMessage("Description is required")
+    .isLength({ min: 5 })
+    .withMessage("Description must be at least 5 characters")
+    .bail(),
+  body("initial_date")
+    .optional()
+    .exists()
+    .notEmpty()
+    .isISO8601()
+    .withMessage("Initial date is required")
+    .bail(),
+  body("end_date")
+    .optional()
+    .exists()
+    .notEmpty()
+    .isISO8601()
+    .withMessage("End date is required")
+    .bail(),
+  body("location")
+    .optional()
+    .trim()
+    .notEmpty()
+    .isString()
+    .withMessage("Location is required")
+    .isLength({ min: 5 })
+    .withMessage("Location must be at least 5 characters")
+    .bail(),
+];
+
 module.exports = {
   createValidator,
   idValidator,
   dateValidator,
+  updateValidator,
 };
