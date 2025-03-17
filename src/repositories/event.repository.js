@@ -132,6 +132,7 @@ const save = async (event, t) => {
 const update = async (id, data, t) => {
   const event = await Events.update(data, {
     where: { id },
+    fields: ["title", "description", "initial_date", "end_date", "location"],
     transaction: t,
   });
   return event;
