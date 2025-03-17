@@ -172,6 +172,46 @@ const updateSeats = async (id, seats, actio) => {
   }
 };
 
+const updateEvent = async (id, event) => {
+  const t = await Transactions.starTransaction();
+  try {
+    await findById(id);
+
+    if (location && initial_date && end_date) {
+      const exists = await event_repository.existEvent(
+        event.initial_date,
+        event.end_date,
+        event.location
+      );
+
+      if (exists) {
+        throw new ServiceError(
+          "Event already exists",
+          ErrorCodes.EVENT.EVENT_ALREADY_EXISTS
+        );
+      }
+
+      if (
+        event.initial_date < new Date() ||
+        event.end_date <= event.initial_date
+      ) {
+        throw new ServiceError("Invalid dates", ErrorCodes.EVENT.INVALID_DATES);
+      }
+    }
+
+    const updatedEvent = await event_repository.update(id, event, t);
+
+    await Transactions.commitTransaction(t);
+    return updatedEvent;
+  } catch (e) {
+    await Transactions.rollbackTransaction(t);
+    throw new ServiceError(
+      e.message || "Error updating event",
+      e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
 module.exports = {
   createEvent,
   findById,
@@ -179,4 +219,5 @@ module.exports = {
   findAllByOrganizer,
   findAllByDate,
   updateSeats,
+  updateEvent,
 };
