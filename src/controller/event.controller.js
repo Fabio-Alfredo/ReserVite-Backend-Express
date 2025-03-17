@@ -149,10 +149,42 @@ const findAllByDate = async (req, res, next) => {
   }
 };
 
+/**
+ * Actualiza la información de un evento
+ *
+ * @param {Object} req - Request
+ * @param {Object} res - Response
+ * @param {Function} next - Next function
+ * @returns {Promise<void>}
+ */
+const updateEventIformation = async (req, res, next) => {
+  try {
+    const event = req.body;
+    const eventId = req.params.id;
+    const updatedEvent = await event_service.updateEvent(eventId, event);
+    responseHandler(res, 200, "Event updated successfully", updatedEvent);
+  } catch (e) {
+    switch (e.code) {
+      case ErrorCodes.EVENT.EVENT_NOT_FOUND:
+        next(createHttpError(404, e.message));
+        break;
+      case ErrorCodes.SERVER.INTERNAL_SERVER_ERROR:
+        next(createHttpError(500, e.message));
+        break;
+      case ErrorCodes.EVENT.INVALID_DATES:
+        next(createHttpError(400, e.message));
+        break;
+      default:
+        next(e);
+    }
+  }
+};
+
 module.exports = {
   createEvent,
   findById,
   findAll,
   findAllByOrganizer,
   findAllByDate,
+  updateEventIformation,
 };
