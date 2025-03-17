@@ -22,9 +22,9 @@ const reservationRouter = Route();
  */
 reservationRouter.post(
   "/create",
+  auth_middleware.authValidator,
   createValidator,
   validatorHandler,
-  auth_middleware.authValidator,
   reservation_controller.createReservation
 );
 
@@ -41,9 +41,9 @@ reservationRouter.post(
  */
 reservationRouter.get(
   "/find-by-id/:id",
+  auth_middleware.authValidator,
   findByIdValidator,
   validatorHandler,
-  auth_middleware.authValidator,
   reservation_controller.findReservationById
 );
 
@@ -53,6 +53,7 @@ reservationRouter.get(
  * @access Privado
  * @middleware
  * - authValidator => valida el token del usuario
+ * - roleValidator => valida el rol del usuario
  * @cotroller
  * - reservation_controller.findAllReservations => busca todas las reservas
  */
@@ -84,6 +85,7 @@ reservationRouter.get(
  * @access Privado
  * @middleware
  * - authValidator => valida el token del usuario
+ * - roleValidator => valida el rol del usuario
  * - findByIdValidator => valida el id
  * - validatorHandler => maneja los errores
  * @cotroller

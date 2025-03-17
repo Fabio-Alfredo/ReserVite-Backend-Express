@@ -172,6 +172,13 @@ const updateSeats = async (id, seats, actio) => {
   }
 };
 
+/**
+ * Actualiza la información de un evento
+ *
+ * @param {string} id - Id del evento
+ * @param {Object} event - Datos del evento
+ * @returns {Promise<*>} - Evento actualizado
+ */
 const updateEvent = async (id, event) => {
   const t = await Transactions.starTransaction();
   try {

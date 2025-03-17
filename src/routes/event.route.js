@@ -17,6 +17,9 @@ const eventRouter = Route();
  * @access Privado
  * @middleware
  * - authValidator => valida el token del usuario
+ * - roleValidator => valida el rol del usuario
+ * - createValidator => valida los campos del body
+ * - validatorHandler => maneja los errores de validacion
  * @cotroller
  * - event_controller.createEvent => crea un nuevo evento
  */
@@ -35,6 +38,8 @@ eventRouter.post(
  * @access Privado
  * @middleware
  * - authValidator => valida el token del usuario
+ * - idValidator => valida los campos del param
+ * - validatorHandler => maneja los errores de validacion
  * @cotroller
  * - event_controller.findById => busca un evento por su id
  */
@@ -67,6 +72,8 @@ eventRouter.get(
  * @access Privado
  * @middleware
  * - authValidator => valida el token del usuario
+ * - idValidator => valida los campos del param
+ * - validatorHandler => maneja los errores de validacion
  * @cotroller
  * - event_controller.findAllByOrganizer => busca todos los eventos de un organizador
  */
@@ -84,6 +91,8 @@ eventRouter.get(
  * @access Privado
  * @middleware
  * - authValidator => valida el token del usuario
+ * - dateValidator => valida los campos del param
+ * - validatorHandler => maneja los errores de validacion
  * @cotroller
  * - event_controller.findAllByDate => busca todos los eventos por una fecha
  */
