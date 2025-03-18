@@ -60,4 +60,9 @@ reviewRouter.put(
   review_controller.updateReview
 );
 
+reviewRouter.delete(
+  "/delete/:id",
+  auth_middleware.authValidator,
+  review_controller.deleteOneReview
+);
 module.exports = reviewRouter;
