@@ -180,6 +180,30 @@ const updateEventIformation = async (req, res, next) => {
   }
 };
 
+/**
+ * Elimina un evento
+ *
+ * @param {Object} req - Request
+ * @param {Object} res - Response
+ * @param {Function} next - Next function
+ * @returns {Promise<void>}
+ */
+const deleteOneEvent = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await event_service.deleteEvent(id);
+    responseHandler(res, 200, "Event deleted successfully");
+  } catch (e) {
+    switch (e.code) {
+      case ErrorCodes.EVENT.EVENT_NOT_FOUND:
+        next(createHttpError(404, e.message));
+        break;
+      case ErrorCodes.SERVER.INTERNAL_SERVER_ERROR:
+        next(createHttpError(500, e.message));
+        break;
+    }
+  }
+};
 module.exports = {
   createEvent,
   findById,
@@ -187,4 +211,5 @@ module.exports = {
   findAllByOrganizer,
   findAllByDate,
   updateEventIformation,
+  deleteOneEvent,
 };
