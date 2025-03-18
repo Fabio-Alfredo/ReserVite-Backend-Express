@@ -13,9 +13,11 @@ const createReview = async (review, user) => {
   const t = await Transacción.starTransaction();
   try {
     await event_service.findById(review.eventId);
-    review.userId = user.id;
 
     const newReview = await review_repository.create(review, t);
+
+    await newReview.setUser(user.id, { transaction: t });
+    await newReview.setEvent(review.eventId, { transaction: t });
 
     await Transacción.commitTransaction(t);
     return newReview;
