@@ -54,18 +54,21 @@ const findAllByEventId = async (eventId) => {
  * @param {string} id - Id de la review
  * @returns {Promise<Reviews>} - Review encontrada
  */
-const updateReview = async (id, review) => {
+const updateReview = async (id, review, user) => {
   const t = await Transacción.starTransaction();
   try {
     const reviewToUpdate = await review_repository.findById(id);
-    if (!reviewToUpdate) {
+
+    if (!reviewToUpdate || reviewToUpdate.userId !== user.id) {
       throw new ServiceError("Review not found", ErrorCodes.REVIEW.NOT_FOUND);
     }
 
-    await review_repository.update(review, t);
+    const newReview = await review_repository.update(id, review, t);
 
-    return reviewToUpdate;
+    await Transacción.commitTransaction(t);
+    return newReview;
   } catch (e) {
+    await Transacción.rollbackTransaction(t);
     throw new ServiceError(
       e.message || "Error finding review",
       e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
