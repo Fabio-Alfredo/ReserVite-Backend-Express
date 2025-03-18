@@ -31,6 +31,9 @@ const ERROR_CODES = {
   PAYMENT: {
     NOT_FOUND: 7000,
   },
+  REVIEW: {
+    NOT_FOUND: 8000,
+  },
 };
 
 module.exports = ERROR_CODES;
