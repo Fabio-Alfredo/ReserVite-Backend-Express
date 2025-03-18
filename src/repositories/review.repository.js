@@ -48,9 +48,24 @@ const findById = async (id) => {
   return review;
 };
 
+/**
+ * Elimina una review
+ * @param {string} id - Id de la review
+ * @param {Object} t - Transacción de la base de datos
+ * @returns {Promise<boolean>} - Review eliminada
+ */
+const deleteReview = async (id, t) => {
+  await Reviews.destroy({
+    where: { id },
+    transaction: t,
+  });
+  return true;
+};
+
 module.exports = {
   create,
   findAllByEventId,
   update,
   findById,
+  deleteReview,
 };
