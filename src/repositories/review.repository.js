@@ -38,6 +38,11 @@ const update = async (review, t) => {
   return updatedReview;
 };
 
+/**
+ * Buscar reviews por su id
+ * @param {string} id - Id de la review
+ * @returns {Promise<Reviews>} - Review encontrada
+ */
 const findById = async (id) => {
   const review = await Reviews.findByPk(id);
   return review;
@@ -47,5 +52,5 @@ module.exports = {
   create,
   findAllByEventId,
   update,
-    findById,
+  findById,
 };
