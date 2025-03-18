@@ -184,7 +184,7 @@ const updateEvent = async (id, event) => {
   try {
     await findById(id);
 
-    if (location && initial_date && end_date) {
+    if (event.location && event.initial_date && event.end_date) {
       const exists = await event_repository.existEvent(
         event.initial_date,
         event.end_date,
