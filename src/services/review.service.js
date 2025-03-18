@@ -97,6 +97,7 @@ const deleteReview = async (reviewId, user) => {
     }
     await review_repository.deleteReview(reviewId, t);
 
+    await Transacción.commitTransaction(t);
     return true;
   } catch (e) {
     await Transacción.rollbackTransaction(t);
