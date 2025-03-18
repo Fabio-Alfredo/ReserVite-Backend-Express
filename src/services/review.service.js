@@ -81,11 +81,10 @@ const updateReview = async (id, review, user) => {
  * @param {Object} user - Usuario que realiza la petición
  * @returns {Promise<boolean>} - Review eliminada
  */
-const deleteReview = async (reviewId, eventId, user) => {
+const deleteReview = async (reviewId, user) => {
   const t = await Transacción.starTransaction();
   try {
     const reviewToDelete = await review_repository.findById(reviewId);
-    await event_service.findById(eventId);
     if (
       !reviewToDelete ||
       reviewToDelete.userId !== user.id ||
