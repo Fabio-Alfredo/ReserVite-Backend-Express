@@ -33,6 +33,7 @@ const ERROR_CODES = {
   },
   REVIEW: {
     NOT_FOUND: 8000,
+    ERROR_DELETING_REVIEW: 8001,
   },
 };
 
