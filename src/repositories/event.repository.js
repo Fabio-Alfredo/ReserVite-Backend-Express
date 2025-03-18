@@ -20,7 +20,7 @@ const create = async (event, t) => {
  * @returns {Promise<*>} - Evento encontrado
  */
 const findById = async (id) => {
-  const event = await Events.findByPk(id);
+  const event = await Events.scope("withReviews").findByPk(id);
   return event;
 };
 
@@ -30,7 +30,7 @@ const findById = async (id) => {
  * @returns {Promise<*>} - Eventos encontrados
  */
 const findAll = async () => {
-  const events = await Events.findAll();
+  const events = await Events.scope("withReviews").findAll();
   return events;
 };
 
@@ -70,7 +70,7 @@ const existEvent = async (initial_date, end_date, location) => {
  * @returns {Promise<*>} - Eventos encontrados
  */
 const findAllByDate = async (date) => {
-  const events = await Events.findAll({
+  const events = await Events.scope("withReviews").findAll({
     where: {
       initial_date: {
         [Op.lte]: date,
@@ -90,7 +90,7 @@ const findAllByDate = async (date) => {
  * @returns {Promise<*>} - Evento encontrado
  */
 const findByTitle = async (title) => {
-  const event = await Events.findOne({
+  const event = await Events.scope("withReviews").findOne({
     where: { title },
   });
   return event;
@@ -103,7 +103,7 @@ const findByTitle = async (title) => {
  * @returns {Promise<*>} - Evento encontrado
  */
 const findAllByOrganizer = async (organizer) => {
-  const event = await Events.findAll({
+  const event = await Events.scope("withReviews").findAll({
     where: { organizer_id: organizer },
   });
   return event;
