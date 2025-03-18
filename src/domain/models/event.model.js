@@ -134,10 +134,12 @@ module.exports = (sequelize, DataTypes) => {
     Events.hasMany(models.Reservations, {
       as: "reservations",
       foreignKey: "eventId",
+      onDelete: "CASCADE",
     });
     Events.hasMany(models.Reviews, {
       as: "reviews",
       foreignKey: "eventId",
+      onDelete: "CASCADE",
     });
   };
 
