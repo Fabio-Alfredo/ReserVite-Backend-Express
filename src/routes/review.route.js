@@ -2,6 +2,10 @@ const Route = require("express").Router;
 const review_controller = require("../controller/review.controller");
 const validatorHandler = require("../middlewares/validator.middleware");
 const auth_middleware = require("../middlewares/auth.middleware");
+const {
+  createReviewValidator,
+  updateReviewValidator,
+} = require("../validators/review.validator");
 
 const reviewRouter = Route();
 
@@ -18,6 +22,8 @@ const reviewRouter = Route();
 reviewRouter.post(
   "/create",
   auth_middleware.authValidator,
+  createReviewValidator,
+  validatorHandler,
   review_controller.createReview
 );
 
@@ -49,6 +55,8 @@ reviewRouter.get(
 reviewRouter.put(
   "/update/:id",
   auth_middleware.authValidator,
+  updateReviewValidator,
+  validatorHandler,
   review_controller.updateReview
 );
 
