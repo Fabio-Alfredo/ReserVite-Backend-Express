@@ -85,8 +85,31 @@ const updateReview = async (req, res, next) => {
   }
 };
 
+const deleteOneReview = async (req, res, next) => {
+  try {
+    const user = req.user;
+    const { eventId, reviewId } = req.body;
+    await review_service.deleteReview(reviewId, eventId, user);
+    responseHandler(res, 200, "Review deleted successfully");
+  } catch (e) {
+    switch (e.code) {
+      case ErrorCodes.REVIEW.ERROR_DELETING_REVIEW:
+        next(createHttpError(409, e.message));
+        break;
+      case ErrorCodes.EVENT.EVENT_NOT_FOUND:
+        next(createHttpError(409, e.message));
+        break;
+      case ErrorCodes.SERVER.INTERNAL_SERVER_ERROR:
+        next(createHttpError(500, e.message));
+        break;
+      default:
+        next(e);
+    }
+  }
+};
 module.exports = {
   createReview,
   getReviewsByEventId,
   updateReview,
+  deleteOneReview,
 };
