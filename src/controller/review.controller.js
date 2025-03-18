@@ -65,7 +65,8 @@ const updateReview = async (req, res, next) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    const review = await review_service.updateReview(id, data);
+    const user = req.user;
+    const review = await review_service.updateReview(id, data, user);
     responseHandler(res, 200, "Review updated successfully", review);
   } catch (e) {
     switch (e.code) {
