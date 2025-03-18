@@ -124,4 +124,26 @@ eventRouter.put(
   validatorHandler,
   event_controller.updateEventIformation
 );
+
+/**
+ * @route DELETE /event/delete/:id
+ * @description Elimina un evento
+ * @access Privado
+ * @middleware
+ * - authValidator => valida el token del usuario
+ * - roleValidator => valida el rol del usuario
+ * - idValidator => valida los campos del param
+ * - validatorHandler => maneja los errores de validacion
+ * @cotroller
+ * - event_controller.deleteOneEvent => elimina un evento
+ */
+eventRouter.delete(
+  "/delete/:id",
+  auth_middleware.authValidator,
+  auth_middleware.roleValidator(["ADMIN"]),
+  idValidator,
+  validatorHandler,
+  event_controller.deleteOneEvent
+);
+
 module.exports = eventRouter;
