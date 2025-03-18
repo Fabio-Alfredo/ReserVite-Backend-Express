@@ -16,7 +16,7 @@ const create = async (review, t) => {
  * @param {string} id - Id del evento
  * @returns {Promise<Reviews>} - Reviews encontrada
  */
-const findByEventId = async (eventId) => {
+const findAllByEventId = async (eventId) => {
   const reviews = await Reviews.findAll({
     where: { eventId },
   });
@@ -40,6 +40,6 @@ const update = async (review, t) => {
 
 module.exports = {
   create,
-  findByEventId,
+  findAllByEventId,
   update,
 };
