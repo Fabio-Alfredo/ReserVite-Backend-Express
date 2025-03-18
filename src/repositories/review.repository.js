@@ -38,8 +38,14 @@ const update = async (review, t) => {
   return updatedReview;
 };
 
+const findById = async (id) => {
+  const review = await Reviews.findByPk(id);
+  return review;
+};
+
 module.exports = {
   create,
   findAllByEventId,
   update,
+    findById,
 };
