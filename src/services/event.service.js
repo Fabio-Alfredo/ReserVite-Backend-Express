@@ -219,6 +219,29 @@ const updateEvent = async (id, event) => {
   }
 };
 
+/**
+ * Elimina un evento
+ *
+ * @param {string} id - Id del evento
+ * @returns {Promise<boolean>} - Evento eliminado
+ */
+const deleteEvent = async (id) => {
+  const t = await Transactions.starTransaction();
+  try {
+    await event_repository.findById(id);
+    const deleted = await event_repository.delete(id, t);
+
+    await Transactions.commitTransaction(t);
+    return deleted;
+  } catch (e) {
+    await Transactions.rollbackTransaction(t);
+    throw new ServiceError(
+      e.message || "Error deleting event",
+      e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
 module.exports = {
   createEvent,
   findById,
@@ -227,4 +250,5 @@ module.exports = {
   findAllByDate,
   updateSeats,
   updateEvent,
+  deleteEvent,
 };
