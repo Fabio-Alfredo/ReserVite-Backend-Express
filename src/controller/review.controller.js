@@ -88,8 +88,8 @@ const updateReview = async (req, res, next) => {
 const deleteOneReview = async (req, res, next) => {
   try {
     const user = req.user;
-    const { eventId, reviewId } = req.body;
-    await review_service.deleteReview(reviewId, eventId, user);
+    const {id} = req.params;
+    await review_service.deleteReview(id, user);
     responseHandler(res, 200, "Review deleted successfully");
   } catch (e) {
     switch (e.code) {
