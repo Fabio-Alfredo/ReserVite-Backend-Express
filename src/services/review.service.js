@@ -13,7 +13,6 @@ const createReview = async (review, user) => {
   const t = await Transacción.starTransaction();
   try {
     await event_service.findById(review.eventId);
-
     const newReview = await review_repository.create(review, t);
 
     await newReview.setUser(user.id, { transaction: t });
@@ -76,8 +75,35 @@ const updateReview = async (id, review, user) => {
   }
 };
 
+const deleteReview = async (id, user) => {
+  const t = await Transacción.starTransaction();
+  try {
+    const reviewToDelete = await review_repository.findById(id);
+    if (
+      !reviewToDelete ||
+      reviewToDelete.userId !== user.id ||
+      !user.roles.includes("ADMIN")
+    ) {
+      throw new ServiceError(
+        "Review not found",
+        ErrorCodes.REVIEW.ERROR_DELETING_REVIEW
+      );
+    }
+    await review_repository.deleteReview(id, t);
+
+    return true;
+  } catch (e) {
+    await Transacción.rollbackTransaction(t);
+    throw new ServiceError(
+      e.message || "Error deleting review",
+      e.code || ErrorCodes.SERVER.INTERNAL_SERVER_ERROR
+    );
+  }
+};
+
 module.exports = {
   createReview,
   findAllByEventId,
   updateReview,
+  deleteReview,
 };
