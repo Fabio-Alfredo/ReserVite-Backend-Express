@@ -109,6 +109,20 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: true,
       tableName: "events",
       underscored: true,
+      scopes: {
+        withReviews: function () {
+          return {
+            include: [
+              {
+                model: sequelize.models.Reviews,
+                as: "reviews",
+                attributes: ["id", "rating", "comment", "createdAt"],
+                required: false,
+              },
+            ],
+          };
+        },
+      },
     }
   );
 
