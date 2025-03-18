@@ -75,10 +75,17 @@ const updateReview = async (id, review, user) => {
   }
 };
 
-const deleteReview = async (id, user) => {
+/**
+ * Elimina una review
+ * @param {string} id - Id de la review
+ * @param {Object} user - Usuario que realiza la petición
+ * @returns {Promise<boolean>} - Review eliminada
+ */
+const deleteReview = async (reviewId, eventId, user) => {
   const t = await Transacción.starTransaction();
   try {
-    const reviewToDelete = await review_repository.findById(id);
+    const reviewToDelete = await review_repository.findById(reviewId);
+    await event_service.findById(eventId);
     if (
       !reviewToDelete ||
       reviewToDelete.userId !== user.id ||
@@ -89,7 +96,7 @@ const deleteReview = async (id, user) => {
         ErrorCodes.REVIEW.ERROR_DELETING_REVIEW
       );
     }
-    await review_repository.deleteReview(id, t);
+    await review_repository.deleteReview(reviewId, t);
 
     return true;
   } catch (e) {
