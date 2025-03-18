@@ -29,9 +29,9 @@ const findAllByEventId = async (eventId) => {
  * @param {Object} t - Transacción de la base de datos
  * @returns {Promise<Reviews>} - Reviews encontrada
  */
-const update = async (review, t) => {
+const update = async (id, review, t) => {
   const updatedReview = await Reviews.update(review, {
-    where: { id: review.id },
+    where: { id },
     transaction: t,
     fields: ["rating", "comment"],
   });
