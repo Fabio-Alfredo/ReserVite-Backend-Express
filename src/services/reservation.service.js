@@ -49,7 +49,7 @@ const createReservation = async (reservation, user) => {
 const findById = async (id) => {
   try {
     const reservation = await reservation_repository.findById(id);
-    if (!reservation || reservation.event.end_date > new Date()) {
+    if (!reservation || reservation.event.end_date < new Date()) {
       throw new ServiceError(
         "Reservation not found",
         ErrorCodes.RESERVATION.NOT_FOUND
