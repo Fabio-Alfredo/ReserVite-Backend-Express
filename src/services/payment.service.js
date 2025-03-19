@@ -1,6 +1,7 @@
 const payment_repository = require("../repositories/payment.repository");
 const user_service = require("./user.service");
 const reservation_service = require("./reservation.service");
+const stripe_service = require("./stripe.service");
 const { ErrorCodes, ServiceError } = require("../utils/errors");
 const Transactions = require("../repositories/transaction.repository");
 const generatePDF = require("../helpers/generatePDF.helper");
@@ -42,6 +43,8 @@ const createPayment = async (payment, user) => {
 
     await newPayment.setUser(Existsuser.id, { transaction: t });
     await newPayment.setReservation(reservation.id, { transaction: t });
+    
+    await stripe_service.createCustomer(Existsuser, payment.tokenId, reservation);
     await sendConfirmation(reservation, Existsuser, newPayment);
 
     await Transactions.commitTransaction(t);
@@ -77,7 +80,7 @@ const sendConfirmation = async (reservation, user, payment) => {
     `./tickets/ticket_${payment.id}.pdf`
   );
 
-  await sendEmail(user.email, "reservationConfirmation", pdf);
+  await sendEmail(user.email, "paymentConfirmation", pdf);
 };
 
 /**
