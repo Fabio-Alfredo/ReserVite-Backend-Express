@@ -24,6 +24,7 @@ const transporter = nodemailer.createTransport({
  */
 const sendMail = async (to, type, data) => {
   try {
+    console.log("Sending email to: ", to);
     const template = createEmailTemplate(type, data);
 
     const mailOptions = {
