@@ -3,7 +3,7 @@ const { ErrorCodes, ServiceError } = require("../utils/errors");
 
 const createCustomer = async (user, tokenId, reservation) => {
   try {
-
+    
     const stripeCharge = await stripe.charges.create({
       amount: parseFloat(reservation.price) * 100,
       currency: "usd",
