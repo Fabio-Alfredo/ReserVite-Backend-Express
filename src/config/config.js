@@ -13,6 +13,8 @@ const {
   COMPANY_EMAIL,
   COMPANY_PASSWORD_EMAIL,
   SECRET_KEY_RECOVERY_JWT,
+  STRIPE_PUBLISHABLE_KEY,
+  STRIPE_SECRET_KEY,
 } = process.env;
 
 // Validar que las variables de entorno estén definidas
@@ -31,6 +33,11 @@ const config = {
       SECRET_KEY_RECOVERY_JWT,
       "SECRET_KEY_RECOVERY"
     ),
+    stripe_public_key: validatorEnv(
+      STRIPE_PUBLISHABLE_KEY,
+      "STRIPE_PUBLISHABLE_KEY"
+    ),
+    stripe_secret_key: validatorEnv(STRIPE_SECRET_KEY, "STRIPE_SECRET_KEY"),
     db: {
       database: validatorEnv(DB_DATABASE_NAME, "DB_DATABASE_NAME"),
       username: validatorEnv(DB_USER_NAME, "DB_USER_NAME"),
@@ -55,6 +62,11 @@ const config = {
       SECRET_KEY_RECOVERY_JWT,
       "SECRET_KEY_RECOVERY"
     ),
+    stripe_public_key: validatorEnv(
+      STRIPE_PUBLISHABLE_KEY,
+      "STRIPE_PUBLISHABLE_KEY"
+    ),
+    stripe_secret_key: validatorEnv(STRIPE_SECRET_KEY, "STRIPE_SECRET_KEY"),
     db: {
       database: validatorEnv(DB_DATABASE_NAME, "DB_DATABASE_NAME"),
       username: validatorEnv(DB_USER_NAME, "DB_USER_NAME"),
