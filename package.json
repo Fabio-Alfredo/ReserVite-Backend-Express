@@ -24,6 +24,7 @@
     "pdfkit": "^0.16.0",
     "qrcode": "^1.5.4",
     "sequelize": "^6.37.5",
-    "sequelize-cli": "^6.6.2"
+    "sequelize-cli": "^6.6.2",
+    "stripe": "^17.7.0"
   }
 }
