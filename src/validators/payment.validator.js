@@ -1,5 +1,5 @@
 const { body } = require("express-validator");
-const payment_methods = require("../utils/constants/paymentMethods");
+const payment_methods = require("../utils/constants/paymentMethods.util");
 
 const paymentMethodValues = Object.values(payment_methods);
 
