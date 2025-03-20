@@ -37,8 +37,10 @@ const TokenStrategies = {
         const payload = verify(token, config.secret_key_jwt);
         return { valid: true, payload };
       } catch (e) {
+        console.log(e);
         if (e instanceof TokenExpiredError)
           return { valid: false, message: "Token expired" };
+        return { valid: false, message: "Invalidtoken" };
       }
     },
   },
@@ -58,6 +60,7 @@ const TokenStrategies = {
       } catch (e) {
         if (e instanceof TokenExpiredError)
           return { valid: false, message: "Token expired" };
+        return { valid: false, message: "Invalidtoken" };
       }
     },
   },
