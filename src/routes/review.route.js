@@ -60,6 +60,15 @@ reviewRouter.put(
   review_controller.updateReview
 );
 
+/**
+ * @route DELETE /review/delete/:id
+ * @description Elimina una review
+ * @access Privado
+ * @middleware
+ * - authValidator => valida el token del usuario
+ * @cotroller
+ * - review_controller.deleteOneReview => elimina una review
+ */
 reviewRouter.delete(
   "/delete/:id",
   auth_middleware.authValidator,

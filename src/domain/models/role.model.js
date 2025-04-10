@@ -1,5 +1,9 @@
 /**
  * Modelo de la tabla roles
+ * 
+ * Relaciones:
+ * El modelo Roles tiene una relación de muchos a muchos con el modelo Users.
+ * 
  * @typedef {Object} Roles
  * @property {string} id - Identificador único del rol
  * @property {string} name.required - Nombre del rol

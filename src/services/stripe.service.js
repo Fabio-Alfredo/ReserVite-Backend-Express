@@ -1,6 +1,14 @@
 const stripe = require("../config/stripe/stripe.config");
 const { ErrorCodes, ServiceError } = require("../utils/errors");
 
+/**
+ * Crea un cliente en Stripe y realiza un cargo
+ *
+ * @param {Object} user - Datos del usuario
+ * @param {string} tokenId - Token de Stripe
+ * @param {Object} reservation - Datos de la reserva
+ * @returns {Promise<*>} - Cargo realizado
+ */
 const createCustomer = async (user, tokenId, reservation) => {
   try {
     

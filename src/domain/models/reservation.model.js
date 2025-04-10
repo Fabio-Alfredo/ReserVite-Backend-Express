@@ -3,6 +3,12 @@ const listStatus = Object.values(statusReservation);
 
 /**
  * Modelo de la tabla reservations
+ * 
+ * Relaciones:
+ * El modelo Reservations tiene una relación de muchos a uno con el modelo Events.
+ * El modelo Reservations tiene una relación de muchos a uno con el modelo Users.
+ * El modelo Reservations tiene una relación de uno a uno con el modelo Payments.
+ * 
  * @typedef {Object} Reservations
  * @property {UUID} id - Identificador único de la reserva
  * @property {integer} quantity.required - Cantidad de asientos reservados

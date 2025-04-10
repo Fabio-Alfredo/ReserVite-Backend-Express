@@ -2,6 +2,14 @@ const bcrypt = require("bcryptjs");
 
 /**
  * Modelo de la tabla users
+ * 
+ * Relaciones:
+ * El modelo Users tiene una relación de muchos a muchos con el modelo Roles.
+ * El modelo Users tiene una relación de uno a muchos con el modelo Events.
+ * El modelo Users tiene una relación de uno a muchos con el modelo Reservations.
+ * El modelo Users tiene una relación de uno a muchos con el modelo Payments.
+ * El modelo Users tiene una relación de uno a muchos con el modelo Reviews.
+ * 
  * @typedef {Object} Users
  * @property {UUID} id - Identificador único del usuario
  * @property {string} name.required - Nombre del usuario

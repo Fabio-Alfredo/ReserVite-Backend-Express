@@ -118,6 +118,12 @@ const updateStatus = async (id, status, t) => {
   }
 };
 
+/**
+ * Marca una reserva como utilizada
+ *
+ * @param {string} id - Id de la reserva
+ * @returns {Promise<*>} - Reserva actualizada
+ */
 const usageReservation = async (id) => {
   const t = await Transacción.starTransaction();
   try {

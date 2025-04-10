@@ -85,10 +85,16 @@ const updateReview = async (req, res, next) => {
   }
 };
 
+/**
+ * Elimina una review por su id
+ * @param {Object} req - Request
+ * @param {Object} res - Response
+ * @param {Object} next - Next
+ */
 const deleteOneReview = async (req, res, next) => {
   try {
     const user = req.user;
-    const {id} = req.params;
+    const { id } = req.params;
     await review_service.deleteReview(id, user);
     responseHandler(res, 200, "Review deleted successfully");
   } catch (e) {
@@ -107,6 +113,7 @@ const deleteOneReview = async (req, res, next) => {
     }
   }
 };
+
 module.exports = {
   createReview,
   getReviewsByEventId,
