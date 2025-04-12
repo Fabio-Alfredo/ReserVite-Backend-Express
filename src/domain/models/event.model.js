@@ -1,11 +1,11 @@
 /**
  * Modelo de la tabla events
- * 
+ *
  * Relaciones:
  * El modelo Events tiene una relación de uno a muchos con el modelo Reservations.
  * El modelo Events tiene una relación de uno a muchos con el modelo Reviews.
  * El modelo Events tiene una relación de muchos a uno con el modelo Users.
- * 
+ *
  * @typedef {Object} Events
  * @property {UUID} id - Identificador único del evento
  * @property {string} title.required - Título del evento
@@ -109,6 +109,10 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Price is required",
           },
         },
+      },
+      url_images: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {
