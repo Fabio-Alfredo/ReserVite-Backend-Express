@@ -34,6 +34,10 @@ const createEvent = async (event, organizer, file) => {
     ) {
       throw new ServiceError("Invalid dates", ErrorCodes.EVENT.INVALID_DATES);
     }
+    
+    if(!file || !file.image) {
+      throw new ServiceError("Image is required", ErrorCodes.EVENT.INVALID_IMAGES);
+    }
     console.log("antes de subir la imagen");
     const image = await uploadImages(file, "events")
     event.url_images = image;
