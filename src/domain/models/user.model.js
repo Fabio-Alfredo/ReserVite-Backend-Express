@@ -83,6 +83,16 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.STRING,
       },
+      url_images:{
+        allowNull: true,
+        type: DataTypes.STRING,
+        defaultValue: "https://res.cloudinary.com/dxk8v4z6f/image/upload/v1697085545/default_user.png",
+        validators: {
+          isUrl: {
+            msg: "Invalid URL",
+          },
+        },
+      }
     },
     {
       timestamps: true,

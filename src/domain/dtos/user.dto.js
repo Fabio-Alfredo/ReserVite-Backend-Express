@@ -16,6 +16,7 @@ const userDTO = (user) => {
     name: user.name,
     email: user.email,
     roles: roles,
+    photo: user.url_images,
   };
 };
 
