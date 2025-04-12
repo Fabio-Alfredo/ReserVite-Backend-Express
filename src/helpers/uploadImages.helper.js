@@ -28,7 +28,7 @@ const uploadImages = async (image, path) => {
     action: "read",
     expires: Date.now() + 60 * 60 * 1000, // URL válida por 1 hora
   });
-  console.log(url);
+
   return url; // Retorna la URL firmada
 };
 

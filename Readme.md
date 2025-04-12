@@ -8,7 +8,6 @@ Reservite API es una solución diseñada para facilitar la gestión eficiente de
 
 Todo esto optimizando la experiencia tanto para los asistentes como para los organizadores.
 
-
 Además, la API ofrece funcionalidades como:
 
 - 🛠️ Administración de eventos
@@ -38,6 +37,8 @@ Este proyecto utiliza las siguientes librerías y herramientas para su funcionam
 - **nodemailer** `^6.10.0` – Envío de correos electrónicos
 - **pdfkit** `^0.16.0` – Generación de archivos PDF
 - **qrcode** `^1.5.4` – Generación de códigos QR
+- **firebase-admin** `^13.2.0` - Integracion con la plataforma de firebase par subir imagenes.
+- **express-fileupload** `^1.5.1` - Permite la carga de archivos a traves de formularios.
 
 ---
 
@@ -49,7 +50,6 @@ Antes de comenzar, asegúrate de tener lo siguiente:
 
 Necesitarás tener **Node.js** instalado. Puedes descargarlo desde:  
 🔗 [https://nodejs.org/es](https://nodejs.org/es)
-
 
 ### 🗃️ MySQL
 
@@ -91,14 +91,16 @@ Este proyecto requiere una base de datos **MySQL** para almacenar la informació
       -d mysql:8.0
       ```
 
-
 ### 💳 Stripe
 
 planeas usar la integracion de pagos con [Stripe](https://stripe.com/es-us), necesitaras una cuenta de Stripe y una clave secreta para procesar los pagos.
 
-
 ### 📩 Gmail
 
 Para el envio de comprobantes necesitaras contar con una cuente de [Gmail](https://mail.google.com/) valida.
+
+### 🔥 FireBase
+
+Para el manejo de imagenes necesitaras contar con una cuenta de [FireBase](https://console.firebase.google.com) valida.
 
 ---
