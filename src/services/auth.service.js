@@ -3,6 +3,7 @@ const { ServiceError, ErrorCodes } = require("../utils/errors");
 const createStrategy = require("../utils/jwt/jwt.util");
 const Transactions = require("../repositories/transaction.repository");
 const sedEmail = require("../helpers/sedEmail.helper");
+const uploadImages = require("../helpers/uploadImages.helper");
 
 /**
  * Registra un nuevo usuario
@@ -11,7 +12,7 @@ const sedEmail = require("../helpers/sedEmail.helper");
  * @returns {Promise<*>} - Usuario registrado
  * @throws {ServiceError} - Error al registrar el usuario
  */
-const register = async (user) => {
+const register = async (user, file) => {
   const t = await Transactions.starTransaction();
   try {
     const exists = await user_repository.findByEmail(user.email);
@@ -20,6 +21,11 @@ const register = async (user) => {
         "Email already exists",
         ErrorCodes.USER.EMAIL_ALREADY_EXISTS
       );
+    }
+    
+    if(file){
+      const image = await uploadImages(file, "users");
+      user.url_images = image;
     }
     const newUser = await user_repository.create(user);
 
