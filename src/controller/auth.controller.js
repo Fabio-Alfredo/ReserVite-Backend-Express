@@ -14,8 +14,8 @@ const responseHandler = require("../helpers/responsehandler.helper");
 const registerUser = async (req, res, next) => {
   try {
     const user = req.body;
-    const newUser = await auth_service.register(user);
-
+    const file = req.files;
+    await auth_service.register(user, file);
     responseHandler(res, 201, "User created successfully");
   } catch (e) {
     switch (e.code) {
