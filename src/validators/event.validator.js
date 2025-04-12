@@ -1,4 +1,4 @@
-const { body, param } = require("express-validator");
+const { body, param  } = require("express-validator");
 
 const createValidator = [
   body("title")
@@ -22,14 +22,14 @@ const createValidator = [
   body("initial_date")
     .exists()
     .notEmpty()
-    .isISO8601()
+    .isString()
     .withMessage("Initial date is required")
     .bail(),
 
   body("end_date")
     .exists()
     .notEmpty()
-    .isISO8601()
+    .isString()
     .withMessage("End date is required")
     .bail(),
 
@@ -69,7 +69,7 @@ const dateValidator = [
   param("date")
     .trim()
     .notEmpty()
-    .isISO8601()
+    .isString()
     .withMessage("Date is required")
     .bail(),
 ];
@@ -98,14 +98,14 @@ const updateValidator = [
     .optional()
     .exists()
     .notEmpty()
-    .isISO8601()
+    .isString()
     .withMessage("Initial date is required")
     .bail(),
   body("end_date")
     .optional()
     .exists()
     .notEmpty()
-    .isISO8601()
+    .isString()
     .withMessage("End date is required")
     .bail(),
   body("location")
