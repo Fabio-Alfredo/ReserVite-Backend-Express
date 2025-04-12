@@ -15,6 +15,7 @@ const {
   SECRET_KEY_RECOVERY_JWT,
   STRIPE_PUBLISHABLE_KEY,
   STRIPE_SECRET_KEY,
+  STORAGE_BUCKET,
 } = process.env;
 
 // Validar que las variables de entorno estén definidas
@@ -26,6 +27,7 @@ const validatorEnv = (env, name) => {
 // Configuración de variables de entorno
 const config = {
   development: {
+    bucket: validatorEnv(STORAGE_BUCKET, "STORAGE_BUCKET"),
     node_env: validatorEnv(NODE_ENV, "NODE_ENV") || "development",
     port: validatorEnv(PORT, "PORT"),
     secret_key_jwt: validatorEnv(SECRET_KEY_JWT, "SECRET_KEY_JWT"),
@@ -55,6 +57,7 @@ const config = {
     },
   },
   production: {
+    bucket: validatorEnv(STORAGE_BUCKET, "STORAGE_BUCKET"),
     node_env: validatorEnv(NODE_ENV, "NODE_ENV") || "development",
     port: validatorEnv(PORT, "PORT"),
     secret_key_jwt: validatorEnv(SECRET_KEY_JWT, "SECRET_KEY_JWT"),
