@@ -101,6 +101,61 @@ Para el envio de comprobantes necesitaras contar con una cuente de [Gmail](https
 
 ### 🔥 FireBase
 
-Para el manejo de imagenes necesitaras contar con una cuenta de [FireBase](https://console.firebase.google.com) valida.
+Para el manejo de imágenes, necesitarás contar con una cuenta de [FireBase](https://console.firebase.google.com) válida.
 
+La clave generada por Firebase, denominada **serviceAccountKey.json**, debe ser colocada en la raíz del proyecto para su correcto funcionamiento.
+
+A continuación, se muestra un esquema básico de la estructura de tu proyecto y dónde debe ir el archivo con la clave de Firebase:
+
+```bash
+/mi-proyecto
+├── /node_modules
+├── /src
+├── /public
+├── .env.example
+├── .env
+├── serviceAccountKey.json <-- Este archivo
+└── README.md
+```
+
+---
+
+## 🛠️ Configuracion de variables de entorno
+
+Para iniciar el proyecto debemos configurar las diferentes variables de entorno que necesita para realizar las teareas de coneccion y creacion de ciertos datos.
+
+- **🚀 1: Crear el archivo .env**
+  Copia el archivo .env.example a un nuevo archivo llamado .env en la raiz de tu proyecto.
+
+      ```bash
+      /mi-proyecto
+      ├── /node_modules
+      ├── /src
+      ├── /public
+      ├── .env.example
+      ├── .env
+      ├── serviceAccountKey.json <-- Este archivo
+      └── README.md
+      ```
+
+- **🚀 2: Configura las viarbles de entorno**
+  Abre el archivo .env y agrega los valores correspondientes para cada variable. A continuación, se muestra un ejemplo de cómo debe lucir tu archivo
+
+      ```bash
+      PORT=5001
+      DB_DATABASE_NAME=mysql
+      DB_USER_NAME=admin
+      DB_PASSWORD=root
+      DB_HOST=/tmp/mysql.sock
+      DB_DIALECT=mysql
+      NODE_ENV=development
+      SECRET_KEY_JWT=secretaunafraseaqui
+      COMPANY_NAME=reservite
+      COMPANY_EMAIL=example@gmail.com
+      COMPANY_PASSWORD_EMAIL=12345678
+      SECRET_KEY_RECOVERY_JWT=secretaunafraseaqui
+      STRIPE_PUBLISHABLE_KEY=pk_test_XXXXXXXXXXXXXX
+      STRIPE_SECRET_KEY=sk_test_XXXXXXXXXXXXXX
+      STORAGE_BUCKET=gs://example-a0e86.firebasestorage.app
+      ```
 ---
