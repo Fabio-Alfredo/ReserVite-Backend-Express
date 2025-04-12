@@ -162,7 +162,8 @@ const updateEventIformation = async (req, res, next) => {
   try {
     const event = req.body;
     const eventId = req.params.id;
-    const updatedEvent = await event_service.updateEvent(eventId, event);
+    const file = req.files;
+    const updatedEvent = await event_service.updateEvent(eventId, event, file);
     responseHandler(res, 200, "Event updated successfully", updatedEvent);
   } catch (e) {
     switch (e.code) {
