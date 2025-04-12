@@ -15,7 +15,8 @@ const createEvent = async (req, res, next) => {
   try {
     const event = req.body;
     const organizer = req.user;
-    const newEvent = await event_service.createEvent(event, organizer);
+    const file = req.files;
+    const newEvent = await event_service.createEvent(event, organizer, file);
 
     responseHandler(res, 201, "Event created successfully", newEvent);
   } catch (e) {

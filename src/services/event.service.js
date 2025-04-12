@@ -3,6 +3,7 @@ const user_service = require("../services/user.service");
 const Transactions = require("../repositories/transaction.repository");
 const status_reservation = require("../utils/constants/statusReservation.util");
 const { ServiceError, ErrorCodes } = require("../utils/errors");
+const uploadImages = require("../helpers/uploadImages.helper");
 
 /**
  * Crea un nuevo evento
@@ -11,7 +12,7 @@ const { ServiceError, ErrorCodes } = require("../utils/errors");
  * @param {Object} organizer - Organizador del evento
  * @returns {Promise<*>} - Evento creado
  */
-const createEvent = async (event, organizer) => {
+const createEvent = async (event, organizer, file) => {
   const t = await Transactions.starTransaction();
   try {
     const exists = await event_repository.existEvent(
@@ -33,7 +34,9 @@ const createEvent = async (event, organizer) => {
     ) {
       throw new ServiceError("Invalid dates", ErrorCodes.EVENT.INVALID_DATES);
     }
-
+    console.log("antes de subir la imagen");
+    const image = await uploadImages(file, "events")
+    event.url_images = image;
     const newEvent = await event_repository.create(event, t);
     await newEvent.setOrganizer(organizer.id, { transaction: t });
 
